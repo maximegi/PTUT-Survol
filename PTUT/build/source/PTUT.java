@@ -16,8 +16,8 @@ public class PTUT extends PApplet {
 
 int cols, rows;
 int scl = 20;
-int w = 2000;
-int h = 1900;
+int w = 600;
+int h = 600;
 
 float[][] terrain;
 float flying = 0.0f;
@@ -36,7 +36,7 @@ public void draw(){
    for ( int y=0; y < rows; y++){
      float xoff = 0;
      for (int x=0; x <cols; x++){
-       terrain[x][y] = map(noise(xoff,yoff), 0, 1, -50, 50); // on convertit la valeur de noise qui vaut entre 0 et 1 en une valeur entre -100 et 100
+       terrain[x][y] = 1000 * sin(atan((x+1)/(y+1)));//map(noise(xoff,yoff), 0, 1, -50, 50); // on convertit la valeur de noise qui vaut entre 0 et 1 en une valeur entre -100 et 100
        xoff += 0.1f;
      }
      yoff += 0.2f;
@@ -49,7 +49,8 @@ public void draw(){
  ambientLight(90, 90, 90);
 
  translate(width/2, height/2+20);
- rotateX((1.2f*PI)/3);
+ rotateX(PI/3);
+ rotateZ(PI/3);
  translate(-w/2, -h/2);
 
  for ( int y=0; y < rows-1; y++){
@@ -61,7 +62,7 @@ public void draw(){
    endShape();
  }
 }
-  public void settings() {  size(600, 600, P3D); }
+  public void settings() {  size(1080, 720, P3D); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "PTUT" };
     if (passedArgs != null) {
