@@ -4,8 +4,8 @@ PeasyCam cam;
 
 int cols, rows;
 int scl = 20;
-int w = 2000;
-int h = 1600;
+int w = 5000;
+int h = 5000;
 
 float flying = 0;
 
@@ -30,14 +30,16 @@ void draw() {
   {
     flying+=0.01;
   }
-  float yoff = flying;
-  for (int y = 0; y < rows; y++) {
-    float xoff = 0;
-    for (int x = 0; x < cols; x++) {
-      terrain[x][y] = map(noise(xoff, yoff), 0, 1, -5, 5);
-      xoff += 0.03;
+  float xoff = flying;
+  for (int x = 0; x < cols; x++)
+  {
+    float yoff = 0;
+    for (int y = 0; y < rows; y++)
+    {
+      terrain[x][y] = map(noise(xoff, yoff), 0, 1, -20, 20);
+      yoff += 0.01;
     }
-    yoff += 0.03;
+    xoff += 0.01;
   }
 
   background(0);
@@ -50,12 +52,17 @@ void draw() {
   //z axis
   stroke(0, 0, 255);
   line(0, 0, -1000, 0, 0, 1000);
-
   stroke(255);
   noFill();
 
+  noStroke();
+  fill(0,180,0);
+  directionalLight(102, 202, 186, 1, 1, 0);
+  ambientLight(30, 30, 30);
+
+
   float angle = 180.0 / cols;
-  int r = 50;
+  int r = 100;
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -68,9 +75,9 @@ void draw() {
         // //y future
         // float yf = j+1;
         // //z past
-        // float zp = 0;
+        // float zp = terrain[i][j];
         // //z future
-        // float zf = 0;
+        // float zf = terrain[i][j+1];
 
         //convert coordinate to cylinderspace
         float x = cos( radians( i * angle ) ) * r;
@@ -83,8 +90,8 @@ void draw() {
         //z future
         float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
         //triangle vertices
-        vertex( x*scl, yp*scl, zp*scl);
-        vertex( x*scl,  yf*scl, zf*scl);
+        vertex( x, yp, zp);
+        vertex( x,  yf, zf);
     }
     endShape();
   }
