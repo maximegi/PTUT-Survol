@@ -13,6 +13,8 @@ float flying = 0;
 
 float[][] terrain;
 
+Camera camera = new Camera();
+
 void setup() {
   size(1920, 1080, P3D);
   //cam = new PeasyCam(this, 500);

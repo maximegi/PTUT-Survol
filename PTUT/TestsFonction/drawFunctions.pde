@@ -1,6 +1,8 @@
 void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
+  pg.camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
+  camera.update();
   pg.beginDraw();
-  pg.translate(width/4,height/2);
+  //pg.translate(width/4,height/2);
   pg.background(100);
   pg.stroke(255, 0, 0);
   pg.line(-1000, 0, 0, 1000, 0, 0);
@@ -35,8 +37,10 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
         float zf = terrain[i][j+1];
 
         //triangle vertices
-        pg.vertex( x, yp, zp);
-        pg.vertex( x,  yf, zf);
+        /*pg.vertex( x, yp, zp);
+        pg.vertex( x,  yf, zf);*/
+        pg.vertex( yp, -zp, x);
+        pg.vertex( yf,  -zf, x);
     }
     pg.endShape();
   }
@@ -44,8 +48,10 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
 }
 
 void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
+  pg.camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
+  camera.update();
   pg.beginDraw();
-  pg.translate(width/4,height/2);
+  //pg.translate(width/4,height/2);
   pg.background(0);
   pg.stroke(255, 0, 0);
   pg.line(-1000, 0, 0, 1000, 0, 0);
@@ -82,8 +88,10 @@ void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
         //z future
         float zf = sin( radians( i * angle ) ) * (rayon + terrain[i][j+1]);
         //triangle vertices
-        pg.vertex( x, yp, zp);
-        pg.vertex( x,  yf, zf);
+        /*pg.vertex( x, yp, zp);
+        pg.vertex( x,  yf, zf);*/
+        pg.vertex( yp, -zp, x);
+        pg.vertex( yf,  -zf, x);
     }
     pg.endShape();
   }
