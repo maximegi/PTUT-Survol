@@ -28,15 +28,18 @@ void setup() {
 
 void draw() {
   //up arrow fly
-  if (keyCode == UP)
+  if (keyCode == LEFT)
   {
     flying-=0.01;
   }
   //down arrow reverse fly
-  else if (keyCode == DOWN)
+  else if (keyCode == RIGHT)
   {
     flying+=0.01;
   }
+
+
+
   float xoff = flying;
   for (int x = 0; x < cols; x++)
   {

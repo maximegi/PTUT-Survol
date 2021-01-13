@@ -18,7 +18,31 @@ class Camera {
   }
 
   void update(){
-    this.centerX = mouseX;
-    //println(centerX);
+    //processMouseEvent();
+    processKeyboardEvent();
   };
+
+  void processMouseEvent(){
+    this.centerX = mouseX;
+  }
+
+  void processKeyboardEvent(){
+    if (keyCode == UP)
+    {
+      this.centerY += 1.0;
+    }
+    else if (keyCode == DOWN)
+    {
+      this.centerY -= 1.0;
+    }
+
+    else if (key == 'z')
+    {
+      this.eyeY += 1.0;
+    }
+    else if (key == 's')
+    {
+      this.eyeY -= 1.0;
+    }
+  }
 }
