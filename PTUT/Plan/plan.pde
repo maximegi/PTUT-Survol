@@ -6,14 +6,19 @@ int cols, rows;
 int scl = 20;
 int w = 5000;
 int h = 5000;
-
+float width = 800;
+float height = 800;
 float flying = 0;
 
 float[][] terrain;
 
+Camera camera = new Camera();
+
 void setup() {
-  size(1920, 1080, P3D);
-  cam = new PeasyCam(this, 500);
+  size(800, 800, P3D);
+  //cam = new PeasyCam(this, 500);
+  //camera.useCam();
+  camera(camera.eyeX,camera.eyeY,camera.eyeX,0,0,0,0,1,0);
   cols = w / scl;
   rows = h/ scl;
   terrain = new float[cols][rows];
@@ -41,7 +46,7 @@ void draw() {
     }
     xoff += 0.01;
   }
-
+  //translate(width/2,height/2);
   background(0);
   //x axis
   stroke(255, 0, 0);
