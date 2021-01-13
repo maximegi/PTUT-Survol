@@ -17,14 +17,14 @@ Camera camera = new Camera();
 void setup() {
   size(800, 800, P3D);
   //cam = new PeasyCam(this, 500);
-  //camera.useCam();
-  camera(camera.eyeX,camera.eyeY,camera.eyeX,0,0,0,0,1,0);
   cols = w / scl;
   rows = h/ scl;
   terrain = new float[cols][rows];
 }
 
 void draw() {
+  camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
+  camera.update();
   //up arrow fly
   if (keyCode == UP)
   {
@@ -68,6 +68,7 @@ void draw() {
 
   float angle = 180.0 / cols;
   int r = 100;
+  translate(-rows/2,0);
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -95,8 +96,10 @@ void draw() {
         //z future
         float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
         //triangle vertices
-        vertex( x, yp, zp);
-        vertex( x,  yf, zf);
+        /*vertex( x, yp, zp);
+        vertex( x,  yf, zf);*/
+        vertex( yp, -zp, x);
+        vertex( yf,  -zf, x);
     }
     endShape();
   }
