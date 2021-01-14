@@ -25,16 +25,17 @@ void setup()
 void draw()
 {
   float pasPerlin = 0.01;
-  float vitesseVol = 5;
-  float vitesseAng = 5;
+  float vitesseVol = 1;
+  float vitesseAng = 1;
   int sizeNoise = 20;
 
   PVector orientation = new PVector(0.0, 0.0);
-  //generate perlin noise
-  orientation.x = distanceX;
+
+  //generate perlin noise considering translation by distanceX,Y and rotation
+  orientation.x = cos(radians(camAngle)) * (distanceX) - sin(radians(camAngle)) * (orientation.y + distanceY);
   for (int x = 0; x < cols; x++)
   {
-    orientation.y = distanceY;
+    orientation.y = sin(radians(camAngle)) * (orientation.x + distanceX) + cos(radians(camAngle)) * (distanceY);
     for (int y = 0; y < rows; y++)
     {
       terrain[x][y] = map(noise(orientation.x, orientation.y), 0, 1, -sizeNoise, sizeNoise);
@@ -50,13 +51,15 @@ void draw()
   if (EAST && !SHIFTPRESSED) distanceY+=vitesseVol;
   if (WEST && SHIFTPRESSED) camAngle+=vitesseAng;
   if (EAST && SHIFTPRESSED) camAngle-=vitesseAng;
-  orientation.rotate(radians(camAngle));
   // orientation.x += cos(radians(camAngle)) * (orientation.x-rows/2) - sin(radians(camAngle)) * (orientation.y-cols/2) + rows/2;
   // orientation.y += sin(radians(camAngle)) * (orientation.x-rows/2) + cos(radians(camAngle)) * (orientation.y-cols/2) + cols/2;
-  //placement camera maxime
+
+  //peasycam maxime
   rotateX(PI/2);
   rotateZ(-PI/2);
   translate(-50,-cols/2,-110);
+  ////////////////////////////
+
   background(0);
   //x axis
   stroke(255, 0, 0);
@@ -68,79 +71,87 @@ void draw()
   stroke(0, 0, 255);
   line(0, 0, -1000, 0, 0, 1000);
   stroke(255);
-  //test rectangle
-  fill(175);
-  rect(orientation.x,orientation.y,cols,rows);
+
+  //display mesh's footprint on perlin
+  noFill();
+  rect(orientation.x-rows/2,orientation.y-cols/2,cols,rows);
 
   noStroke();
-  // fill(0,155,0);
-  // directionalLight(102, 202, 186, 1, 1, 0);
-  // ambientLight(30, 30, 30);
+  fill(0,155,0);
+  directionalLight(102, 202, 186, 1, 1, 0);
+  ambientLight(30, 30, 30);
 
   float angle = 180.0 / cols;
   int r = 100;
-  // for(int j = 0; j < rows-1; j++)
-  // {
-  //   beginShape(TRIANGLE_STRIP);
-  //   for (int i = 0; i < cols; i++)
-  //   {
-  //       //cartesian coordinates
-  //       // float x = i;
-  //       // //y past
-  //       // float yp = j;
-  //       // //y future
-  //       // float yf = j+1;
-  //       // //z past
-  //       // float zp = terrain[i][j];
-  //       // //z future
-  //       // float zf = terrain[i][j+1];
-  //
-  //       //convert coordinate to cylinderspace
-  //       float x = cos( radians( i * angle ) ) * r;
-  //       //y past
-  //       float yp = j;
-  //       //y future
-  //       float yf = j+1;
-  //       //z past
-  //       float zp = sin( radians( i * angle ) ) * r + terrain[i][j];
-  //       //z future
-  //       float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
-  //       //triangle vertices
-  //       vertex(x, yp, zp);
-  //       vertex(x, yf, zf);
-  //   }
-  //   endShape();
-  // }
+  for(int j = 0; j < rows-1; j++)
+  {
+    beginShape(TRIANGLE_STRIP);
+    for (int i = 0; i < cols; i++)
+    {
+        //cartesian coordinates
+        float x = i;
+        //y past
+        float yp = j;
+        //y future
+        float yf = j+1;
+        //z past
+        float zp = terrain[i][j];
+        //z future
+        float zf = terrain[i][j+1];
+
+        //convert coordinate to cylinderspace
+        // float x = cos( radians( i * angle ) ) * r;
+        // //y past
+        // float yp = j;
+        // //y future
+        // float yf = j+1;
+        // //z past
+        // float zp = sin( radians( i * angle ) ) * r + terrain[i][j];
+        // //z future
+        // float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
+        //triangle vertices
+        vertex(x-rows/2, yp-cols/2, zp);
+        vertex(x-rows/2, yf-cols/2, zf);
+    }
+    endShape();
+  }
 }
 
-// float[][] perlinMoving()
-// {
-//   float pasPerlin = 0.01;
-//   float vitesseVol = 0.01;
-//   int sizeNoise = 20;
-//
-//   PVector orientation = new PVector(0.0, 0.0);
-//   //generate perlin noise
-//   orientation.x = distanceX;
-//   for (int x = 0; x < cols; x++)
-//   {
-//     orientation.y = distanceY;
-//     for (int y = 0; y < rows; y++)
-//     {
-//       terrain[x][y] = map(noise(orientation.x, orientation.y), 0, 1, -sizeNoise, sizeNoise);
-//       orientation.y += pasPerlin;
-//     }
-//     orientation.x += pasPerlin;
-//   }
-//
-//   //translate the mesh
-//   if (NORTH)  distanceX-=vitesseVol;
-//   if (SOUTH)  distanceX+=vitesseVol;
-//   if (WEST)   distanceY-=vitesseVol;
-//   if (EAST)   distanceY+=vitesseVol;
-//
-//   return terrain;
-// }
+float[][] perlinMoving()
+{
+  float pasPerlin = 0.01;
+  float vitesseVol = .05;
+  float vitesseAng = 5;
+  int sizeNoise = 20;
+
+  PVector orientation = new PVector(0.0, 0.0);
+  //generate perlin noise
+  orientation.x = distanceX;
+  orientation.x = sin(radians(camAngle)) * orientation.x + cos(radians(camAngle)) * orientation.y;
+  for (int x = 0; x < cols; x++)
+  {
+    orientation.y = distanceY;
+    orientation.y = cos(radians(camAngle)) * orientation.x - sin(radians(camAngle)) * orientation.y;
+    for (int y = 0; y < rows; y++)
+    {
+      terrain[x][y] = map(noise(orientation.x, orientation.y), 0, 1, -sizeNoise, sizeNoise);
+      orientation.y += pasPerlin;
+    }
+    orientation.x += pasPerlin;
+  }
+
+  //move the mesh
+  if (NORTH) distanceX+=vitesseVol;
+  if (SOUTH) distanceX-=vitesseVol;
+  if (WEST && !SHIFTPRESSED) distanceY-=vitesseVol;
+  if (EAST && !SHIFTPRESSED) distanceY+=vitesseVol;
+  if (WEST && SHIFTPRESSED) camAngle+=vitesseAng;
+  if (EAST && SHIFTPRESSED) camAngle-=vitesseAng;
+  // orientation.x += cos(radians(camAngle)) * (orientation.x-rows/2) - sin(radians(camAngle)) * (orientation.y-cols/2) + rows/2;
+  // orientation.y += sin(radians(camAngle)) * (orientation.x-rows/2) + cos(radians(camAngle)) * (orientation.y-cols/2) + cols/2;
+
+  return terrain;
+}
 
 void keyPressed()
 {
