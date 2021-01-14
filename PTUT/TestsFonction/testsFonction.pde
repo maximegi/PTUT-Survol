@@ -3,6 +3,7 @@ import peasy.*;
 //PeasyCam cam;
 
 PGraphics pgPlanarView, pgMappedView;
+PImage img1, img2;
 
 int cols, rows;
 int scl = 20;
@@ -24,6 +25,9 @@ void setup() {
 
   pgPlanarView = createGraphics(width/2,height, P3D);
   pgMappedView = createGraphics(width/2,height, P3D);
+
+  img1 = loadImage("ground.jpg");
+  img2 = loadImage("snow.jpg");
 }
 
 void draw() {

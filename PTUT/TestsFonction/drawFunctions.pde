@@ -16,7 +16,7 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
   pg.noFill();
 
   pg.noStroke();
-  pg.fill(0,180,0);
+  //pg.fill(0,180,0);
   pg.directionalLight(102, 202, 186, 1, 1, 0);
   pg.ambientLight(30, 30, 30);
 
@@ -39,7 +39,18 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
+        
+        if(terrain[i][j] >5.0){
+          pg.texture(img2);
+          //pg.fill(255,0,0);
+        }
+        else{
+          pg.texture(img1);
+          //pg.fill(0,255,0);
+        }
+        //pg.texture(createImg(img1, img2, terrain[i][j]));
         pg.vertex( yp, -zp, x);
+
         pg.vertex( yf,  -zf, x);
     }
     pg.endShape();
@@ -90,6 +101,7 @@ void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
+
         pg.vertex( yp, -zp, x);
         pg.vertex( yf,  -zf, x);
     }
