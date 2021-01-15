@@ -25,11 +25,7 @@ int scl = 20;
 int w = 5000;
 int h = 5000;
 
-float distanceX = 0.0f;
-float distanceY = 0.0f;
-float camAngle = 0.0f;
-boolean NORTH, SOUTH, WEST, EAST, SHIFTPRESSED;
-float[][] terrain;
+Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 
 public void setup()
 {
@@ -37,44 +33,23 @@ public void setup()
   cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
-  terrain = new float[cols][rows];
+}
+
+public float perlin(float posX, int j, float posY, int i, int sizeNoise, float pasPerlin)
+{
+  return map(noise(posX + j * pasPerlin, posY + i * pasPerlin), 0, 1, -sizeNoise, sizeNoise);
 }
 
 public void draw()
 {
   float pasPerlin = 0.01f;
-  float vitesseVol = 1;
-  float vitesseAng = 1;
   int sizeNoise = 20;
-
-  PVector orientation = new PVector(0.0f, 0.0f);
-  //generate perlin noise
-  orientation.x = cos(radians(camAngle)) * (distanceX) - sin(radians(camAngle)) * (orientation.y + distanceY);
-  for (int x = 0; x < cols; x++)
-  {
-    orientation.y = sin(radians(camAngle)) * (orientation.x + distanceX) + cos(radians(camAngle)) * (distanceY);
-    for (int y = 0; y < rows; y++)
-    {
-      terrain[x][y] = map(noise(orientation.x, orientation.y), 0, 1, -sizeNoise, sizeNoise);
-      orientation.y += pasPerlin;
-    }
-    orientation.x += pasPerlin;
-  }
-
-  //move the mesh
-  if (NORTH) distanceX+=vitesseVol;
-  if (SOUTH) distanceX-=vitesseVol;
-  if (WEST && !SHIFTPRESSED) distanceY-=vitesseVol;
-  if (EAST && !SHIFTPRESSED) distanceY+=vitesseVol;
-  if (WEST && SHIFTPRESSED) camAngle+=vitesseAng;
-  if (EAST && SHIFTPRESSED) camAngle-=vitesseAng;
-  // orientation.x += cos(radians(camAngle)) * (orientation.x-rows/2) - sin(radians(camAngle)) * (orientation.y-cols/2) + rows/2;
-  // orientation.y += sin(radians(camAngle)) * (orientation.x-rows/2) + cos(radians(camAngle)) * (orientation.y-cols/2) + cols/2;
-
-  //placement camera maxime
+  //peasycam maxime
   rotateX(PI/2);
   rotateZ(-PI/2);
   translate(-50,-cols/2,-110);
+  ////////////////////////////
+
   background(0);
   //x axis
   stroke(255, 0, 0);
@@ -86,10 +61,14 @@ public void draw()
   stroke(0, 0, 255);
   line(0, 0, -1000, 0, 0, 1000);
   stroke(255);
+  noFill();
 
   //display mesh's footprint on perlin
-  noFill();
-  rect(orientation.x-rows/2,orientation.y-cols/2,cols,rows);
+  // pushMatrix();
+  mesh.move();
+  rect(mesh.x(), mesh.y(), mesh.w(), mesh.h());
+  // popMatrix();
+
 
   noStroke();
   fill(0,155,0);
@@ -104,26 +83,27 @@ public void draw()
     for (int i = 0; i < cols; i++)
     {
         //cartesian coordinates
-        float x = i;
-        //y past
-        float yp = j;
-        //y future
-        float yf = j+1;
-        //z past
-        float zp = terrain[i][j];
-        //z future
-        float zf = terrain[i][j+1];
-
-        //convert coordinate to cylinderspace
-        // float x = cos( radians( i * angle ) ) * r;
+        // float x = i;
         // //y past
         // float yp = j;
         // //y future
         // float yf = j+1;
         // //z past
-        // float zp = sin( radians( i * angle ) ) * r + terrain[i][j];
+        // float zp = perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
         // //z future
-        // float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
+        // float zf = perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+
+        //convert coordinate to cylinderspace
+        float x = cos( radians( i * angle ) ) * r;
+        //y past
+        float yp = j;
+        //y future
+        float yf = j+1;
+        //z past
+        float zp = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
+        //z future
+        float zf = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+
         //triangle vertices
         vertex(x-rows/2, yp-cols/2, zp);
         vertex(x-rows/2, yf-cols/2, zf);
@@ -132,41 +112,64 @@ public void draw()
   }
 }
 
-public float[][] perlinMoving()
+// //dont use this
+// float[][] perlinTab(Terrain terrain, int sizeNoise, int scl, float pasPerlin)
+// {
+//   int cols = w / scl;
+//   int rows = h / scl;
+//   float[][] perlinTab = new float[cols][rows];
+//   float posX = terrain.x();
+//   float posY = terrain.y();
+//   for (int x = 0; x < cols; x++)
+//   {
+//     for (int y = 0; y < rows; y++)
+//     {
+//       perlinTab[x][y] = map(noise(posX, posY), 0, 1, -sizeNoise, sizeNoise);
+//       posY += pasPerlin;
+//     }
+//     posX += pasPerlin;
+//   }
+//   return perlinTab;
+// }
+class Terrain
 {
-  float pasPerlin = 0.01f;
-  float vitesseVol = .05f;
-  float vitesseAng = 5;
-  int sizeNoise = 20;
+  //parameters
+  PVector position = new PVector(0.f, 0.f);
+  PVector direction = new PVector(.001f, 0.f);
+  int w;
+  int h;
+  float deltaPos = .01f;
+  float deltaAngle = .01f;
 
-  PVector orientation = new PVector(0.0f, 0.0f);
-  //generate perlin noise
-  orientation.x = distanceX;
-  orientation.x = sin(radians(camAngle)) * orientation.x + cos(radians(camAngle)) * orientation.y;
-  for (int x = 0; x < cols; x++)
+  public float x(){return position.x;}
+  public float y(){return position.y;}
+  public int w(){return w;}
+  public int h(){return h;}
+
+  Terrain(float x, float y, int w, int h)
   {
-    orientation.y = distanceY;
-    orientation.y = cos(radians(camAngle)) * orientation.x - sin(radians(camAngle)) * orientation.y;
-    for (int y = 0; y < rows; y++)
-    {
-      terrain[x][y] = map(noise(orientation.x, orientation.y), 0, 1, -sizeNoise, sizeNoise);
-      orientation.y += pasPerlin;
-    }
-    orientation.x += pasPerlin;
+    this.position.x = x;
+    this.position.y = y;
+    this.w = w;
+    this.h = h;
   }
 
-  //move the mesh
-  if (NORTH) distanceX+=vitesseVol;
-  if (SOUTH) distanceX-=vitesseVol;
-  if (WEST && !SHIFTPRESSED) distanceY-=vitesseVol;
-  if (EAST && !SHIFTPRESSED) distanceY+=vitesseVol;
-  if (WEST && SHIFTPRESSED) camAngle+=vitesseAng;
-  if (EAST && SHIFTPRESSED) camAngle-=vitesseAng;
-  // orientation.x += cos(radians(camAngle)) * (orientation.x-rows/2) - sin(radians(camAngle)) * (orientation.y-cols/2) + rows/2;
-  // orientation.y += sin(radians(camAngle)) * (orientation.x-rows/2) + cos(radians(camAngle)) * (orientation.y-cols/2) + cols/2;
+  public void move()
+  {
 
-  return terrain;
+    if (NORTH) position.x+=deltaPos;
+    if (SOUTH) position.x-=deltaPos;
+    if (WEST && !SHIFTPRESSED) position.y-=deltaPos;
+    if (EAST && !SHIFTPRESSED) position.y+=deltaPos;
+    if (WEST && SHIFTPRESSED) rotate2D(direction, -deltaAngle);
+    if (EAST && SHIFTPRESSED) rotate2D(direction, deltaAngle);
+    translate(direction.x, direction.y);
+    rotate(atan2(direction.y, direction.x));
+  }
+
 }
+
+boolean NORTH, SOUTH, WEST, EAST, SHIFTPRESSED;
 
 public void keyPressed()
 {
@@ -187,6 +190,13 @@ public void keyReleased()
   else if (k == LEFT) WEST  = false;
   else if (k == RIGHT) EAST  = false;
   else if (k == SHIFT) SHIFTPRESSED = false;
+}
+
+public void rotate2D(PVector v, float theta)
+{
+  float xTemp = v.x;
+  v.x = v.x*cos(theta) - v.y*sin(theta);
+  v.y = xTemp*sin(theta) + v.y*cos(theta);
 }
   public void settings() {  size(1080, 720, P3D); }
   static public void main(String[] passedArgs) {
