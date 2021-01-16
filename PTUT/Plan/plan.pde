@@ -6,47 +6,32 @@ int cols, rows;
 int scl = 20;
 int w = 5000;
 int h = 5000;
-float width = 800;
-float height = 800;
-float flying = 0;
 
-float[][] terrain;
+Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 
-Camera camera = new Camera();
-
-void setup() {
-  size(800, 800, P3D);
-  //cam = new PeasyCam(this, 500);
+void setup()
+{
+  size(1080, 720, P3D);
+  cam = new PeasyCam(this, 200);
   cols = w / scl;
-  rows = h/ scl;
-  terrain = new float[cols][rows];
+  rows = h / scl;
 }
 
-void draw() {
-  camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
-  camera.update();
-  //up arrow fly
-  if (keyCode == UP)
-  {
-    flying-=0.01;
-  }
-  //down arrow reverse fly
-  else if (keyCode == DOWN)
-  {
-    flying+=0.01;
-  }
-  float xoff = flying;
-  for (int x = 0; x < cols; x++)
-  {
-    float yoff = 0;
-    for (int y = 0; y < rows; y++)
-    {
-      terrain[x][y] = map(noise(xoff, yoff), 0, 1, -20, 20);
-      yoff += 0.01;
-    }
-    xoff += 0.01;
-  }
-  //translate(width/2,height/2);
+float perlin(float posX, int j, float posY, int i, int sizeNoise, float pasPerlin)
+{
+  return map(noise(posX + j * pasPerlin, posY + i * pasPerlin), 0, 1, -sizeNoise, sizeNoise);
+}
+
+void draw()
+{
+  float pasPerlin = 0.01;
+  int sizeNoise = 20;
+  //peasycam maxime
+  rotateX(PI/2);
+  rotateZ(-PI/2);
+  translate(-50,-cols/2,-110);
+  ////////////////////////////
+
   background(0);
   //x axis
   stroke(255, 0, 0);
@@ -60,11 +45,17 @@ void draw() {
   stroke(255);
   noFill();
 
+  //display mesh's footprint on perlin
+  // pushMatrix();
+  mesh.move();
+  rect(mesh.x(), mesh.y(), mesh.w(), mesh.h());
+  // popMatrix();
+
+
   noStroke();
-  fill(0,180,0);
+  fill(0,155,0);
   directionalLight(102, 202, 186, 1, 1, 0);
   ambientLight(30, 30, 30);
-
 
   float angle = 180.0 / cols;
   int r = 100;
@@ -81,9 +72,9 @@ void draw() {
         // //y future
         // float yf = j+1;
         // //z past
-        // float zp = terrain[i][j];
+        // float zp = perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
         // //z future
-        // float zf = terrain[i][j+1];
+        // float zf = perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
 
         //convert coordinate to cylinderspace
         float x = cos( radians( i * angle ) ) * r;
@@ -92,15 +83,34 @@ void draw() {
         //y future
         float yf = j+1;
         //z past
-        float zp = sin( radians( i * angle ) ) * r + terrain[i][j];
+        float zp = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
         //z future
-        float zf = sin( radians( i * angle ) ) * r + terrain[i][j+1];
+        float zf = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+
         //triangle vertices
-        /*vertex( x, yp, zp);
-        vertex( x,  yf, zf);*/
-        vertex( yp, -zp, x);
-        vertex( yf,  -zf, x);
+        vertex(x-rows/2, yp-cols/2, zp);
+        vertex(x-rows/2, yf-cols/2, zf);
     }
     endShape();
   }
 }
+
+// //dont use this
+// float[][] perlinTab(Terrain terrain, int sizeNoise, int scl, float pasPerlin)
+// {
+//   int cols = w / scl;
+//   int rows = h / scl;
+//   float[][] perlinTab = new float[cols][rows];
+//   float posX = terrain.x();
+//   float posY = terrain.y();
+//   for (int x = 0; x < cols; x++)
+//   {
+//     for (int y = 0; y < rows; y++)
+//     {
+//       perlinTab[x][y] = map(noise(posX, posY), 0, 1, -sizeNoise, sizeNoise);
+//       posY += pasPerlin;
+//     }
+//     posX += pasPerlin;
+//   }
+//   return perlinTab;
+// }
