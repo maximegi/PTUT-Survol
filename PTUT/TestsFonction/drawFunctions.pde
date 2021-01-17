@@ -17,8 +17,8 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
 
   pg.noStroke();
   //pg.fill(0,180,0);
-  pg.directionalLight(102, 202, 186, 1, 1, 0);
-  pg.ambientLight(30, 30, 30);
+  //pg.directionalLight(102, 202, 186, 1, 1, 0);
+  //pg.ambientLight(30, 30, 30);
 
   for(int j = 0; j < rows-1; j++)
   {
@@ -39,16 +39,23 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
-        
-        if(terrain[i][j] >5.0){
-          pg.texture(img2);
-          //pg.fill(255,0,0);
+        pg.fill(getBiome(terrain[i][j],terrainTexture[i][j]));
+        /*
+        if(terrain[i][j] >7.0){
+          //pg.texture(img2);
+          pg.fill(255,255,255);
+        }
+        else if(terrain[i][j] < -7.0){
+          //pg.texture(img2);
+          pg.fill(eau);
         }
         else{
-          pg.texture(img1);
-          //pg.fill(0,255,0);
-        }
-        //pg.texture(createImg(img1, img2, terrain[i][j]));
+          //pg.texture(img1);
+          pg.fill(80,400*(abs(terrain[i][j])/20),10);
+        }*/
+        //pg.texture(createImg(img1, img2, 0.5));
+        //pg.texture(createImg(img1, img2, imgFinale, 0.5));
+        //pg.texture(imgFinale);
         pg.vertex( yp, -zp, x);
 
         pg.vertex( yf,  -zf, x);
@@ -76,9 +83,9 @@ void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
   pg.noFill();
 
   pg.noStroke();
-  pg.fill(0,180,0);
-  pg.directionalLight(102, 202, 186, 1, 1, 0);
-  pg.ambientLight(30, 30, 30);
+  //pg.fill(0,180,0);
+  //pg.directionalLight(102, 202, 186, 1, 1, 0);
+  //pg.ambientLight(30, 30, 30);
 
   //we're working with a half cylinder
   float angle = 180.0 / cols;
@@ -101,7 +108,7 @@ void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
-
+        pg.fill(getBiome(terrain[i][j], terrainTexture[i][j]));
         pg.vertex( yp, -zp, x);
         pg.vertex( yf,  -zf, x);
     }

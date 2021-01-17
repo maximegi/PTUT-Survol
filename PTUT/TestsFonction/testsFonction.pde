@@ -13,6 +13,7 @@ int h = 5000;
 float flying = 0;
 
 float[][] terrain;
+float[][] terrainTexture;
 
 Camera camera = new Camera();
 
@@ -22,12 +23,15 @@ void setup() {
   cols = w / scl;
   rows = h/ scl;
   terrain = new float[cols][rows];
+  terrainTexture = new float[cols][rows];
 
   pgPlanarView = createGraphics(width/2,height, P3D);
   pgMappedView = createGraphics(width/2,height, P3D);
 
   img1 = loadImage("ground.jpg");
   img2 = loadImage("snow.jpg");
+
+
 }
 
 void draw() {
@@ -51,10 +55,19 @@ void draw() {
     for (int y = 0; y < rows; y++)
     {
       terrain[x][y] = map(noise(xoff, yoff), 0, 1, -20, 20);
+      float m = 1 * noise(1 * xoff, 1 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
+      terrainTexture[x][y] = pow(m, 1.42);
       yoff += 0.01;
     }
     xoff += 0.01;
   }
+
+/*
+  for(int j = 0; j < rows-1; j++){
+    for (int i = 0; i < cols; i++){
+      textures[i][j] = createImg(img1, img2, 0.5);
+    }
+  }*/
 
   drawPlanar(pgPlanarView, cols, rows, terrain);
   mapCylinder(pgMappedView, cols, rows, 100, terrain);
