@@ -3,7 +3,6 @@ import peasy.*;
 //PeasyCam cam;
 
 PGraphics pgPlanarView, pgMappedView;
-PImage img1, img2;
 
 int cols, rows;
 int scl = 20;
@@ -27,23 +26,18 @@ void setup() {
 
   pgPlanarView = createGraphics(width/2,height, P3D);
   pgMappedView = createGraphics(width/2,height, P3D);
-
-  img1 = loadImage("ground.jpg");
-  img2 = loadImage("snow.jpg");
-
-
 }
 
 void draw() {
   //up arrow fly
   if (keyCode == LEFT)
   {
-    flying-=0.01;
+    flying-=0.03;
   }
   //down arrow reverse fly
   else if (keyCode == RIGHT)
   {
-    flying+=0.01;
+    flying+=0.03;
   }
 
 
@@ -55,19 +49,14 @@ void draw() {
     for (int y = 0; y < rows; y++)
     {
       terrain[x][y] = map(noise(xoff, yoff), 0, 1, -20, 20);
-      float m = 1 * noise(1 * xoff, 1 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
+
+      //Deuxième bruit de perlin permettant de faire des variations de texturing sur le sol
+      float m = 1 * noise(3 * xoff, 3 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
       terrainTexture[x][y] = pow(m, 1.42);
       yoff += 0.01;
     }
     xoff += 0.01;
   }
-
-/*
-  for(int j = 0; j < rows-1; j++){
-    for (int i = 0; i < cols; i++){
-      textures[i][j] = createImg(img1, img2, 0.5);
-    }
-  }*/
 
   drawPlanar(pgPlanarView, cols, rows, terrain);
   mapCylinder(pgMappedView, cols, rows, 100, terrain);

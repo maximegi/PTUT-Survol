@@ -1,30 +1,35 @@
-color eau = color(45,127,144);
+color eau = color(45,127,150);
 color sable = color(229,217,194);
-color herbe = color(38,62,14);
-color herbe2 = color(116,142,64);
-color herbe3 = color(180,191,65);
+color herbeClaire = color(180,191,65);
+color herbe = color(116,142,64);
+color herbeFoncee = color(38,80,14);
 color terre = color(158,127,79);
 
 
 color getBiome(float h, float m){
   if(h <= -5.0){
-    return eau;
+    //return eau;
+    return color(red(eau),green(eau),map(h, -20.0, -5.0, 1.5, 0.9)*blue(eau));
   }
   if(h <= -4.0){
     return sable;
   }
   if(h <= -3.0){
-    return terre;
+    //return terre;
+    return color(red(terre),green(terre)*map(h, -3, -4, 1.12, 1),blue(terre));
+  }
+  if(h >= 8.0){
+    //return herbeFoncee;
+    return color(red(herbeFoncee),green(herbeFoncee)*map(h, 8.0, 20, 1, 0.2),blue(herbeFoncee));
   }
   else{
-    if(m <= 0.33){
-      return herbe;
-    }
-    else if(m <= 0.9){
-      return herbe2;
+    if(m <= 0.5 || m>=0.99){
+      //return herbeClaire;
+      return color(red(herbeClaire)+(20*m),green(herbeClaire)*map(h, -3.0, 8.0, 1, 0.8),blue(herbeClaire));
     }
     else{
-      return herbe3;
+      //return herbe;
+      return color(red(herbe)*m,green(herbe)*map(h, -3.0, 8.0, 1, 0.8),blue(herbe));
     }
   }
 }
