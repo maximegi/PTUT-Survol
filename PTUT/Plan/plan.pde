@@ -7,6 +7,9 @@ int scl = 20;
 int w = 5000;
 int h = 5000;
 
+PShape tree;
+float offsetTree = 4;
+
 Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 
 void setup()
@@ -15,6 +18,7 @@ void setup()
   cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
+  tree = loadShape("lowpolytree.obj");
 }
 
 float perlin(float posX, int j, float posY, int i, int sizeNoise, float pasPerlin)
@@ -29,7 +33,8 @@ void draw()
   //peasycam maxime
   rotateX(PI/2);
   rotateZ(-PI/2);
-  translate(-50,-cols/2,-110);
+  //translate(-50,-cols/2,-110);
+
   ////////////////////////////
 
   background(0);
@@ -59,7 +64,7 @@ void draw()
 
   float angle = 180.0 / cols;
   int r = 100;
-  translate(-rows/2,0);
+  //translate(-rows/2,0);
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -86,6 +91,21 @@ void draw()
         float zp = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
         //z future
         float zf = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+
+        float ran = map(perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin), -sizeNoise, sizeNoise, 0, 100);
+        //println(ran);
+        if(ran <= 30){
+          pushMatrix();
+          //translate(+rows/2,0);
+          rotateX(PI/2);
+          //translate(-yp + cols/2,zp + offsetTree,x);
+          translate(x-rows/2,zp + offsetTree,-yp + cols/2);
+            //translate(x,yp,zp);
+          scale(2);
+          fill(0,255,0);
+          shape(tree);
+          popMatrix();
+        }
 
         //triangle vertices
         vertex(x-rows/2, yp-cols/2, zp);
