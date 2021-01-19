@@ -39,7 +39,7 @@ void drawPlanar(PGraphics pg, int cols, int rows, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
-        pg.fill(getBiome(terrain[i][j],terrainTexture[i][j]));
+        pg.fill(getBiome(terrain[i][j],terrainTexture[i][j], true));
         /*
         if(terrain[i][j] >7.0){
           //pg.texture(img2);
@@ -108,7 +108,7 @@ void mapCylinder(PGraphics pg, int cols, int rows, int rayon, float[][]terrain){
         //triangle vertices
         /*pg.vertex( x, yp, zp);
         pg.vertex( x,  yf, zf);*/
-        pg.fill(getBiome(terrain[i][j], terrainTexture[i][j]));
+        pg.fill(getBiome(terrain[i][j], terrainTexture[i][j], true));
         pg.vertex( yp, -zp, x);
         pg.vertex( yf,  -zf, x);
     }

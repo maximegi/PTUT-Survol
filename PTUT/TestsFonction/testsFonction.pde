@@ -17,6 +17,7 @@ float[][] terrainTexture;
 Camera camera = new Camera();
 
 void setup() {
+
   size(1920, 1080, P3D);
   //cam = new PeasyCam(this, 500);
   cols = w / scl;
@@ -26,6 +27,7 @@ void setup() {
 
   pgPlanarView = createGraphics(width/2,height, P3D);
   pgMappedView = createGraphics(width/2,height, P3D);
+
 }
 
 void draw() {
@@ -39,6 +41,7 @@ void draw() {
   {
     flying+=0.03;
   }
+
 
 
 
