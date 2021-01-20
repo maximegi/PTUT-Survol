@@ -9,9 +9,11 @@ int scl = 20;
 int w = 5000;
 int h = 5000;
 
-float flying = 0;
+PShape tree;
+float offsetTree = 4;
 
-float[][] terrain;
+Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
+
 float[][] terrainTexture;
 
 Camera camera = new Camera();
@@ -22,7 +24,9 @@ void setup() {
   //cam = new PeasyCam(this, 500);
   cols = w / scl;
   rows = h/ scl;
-  terrain = new float[cols][rows];
+
+  tree = loadShape("lowpolytree.obj");
+
   terrainTexture = new float[cols][rows];
 
   pgPlanarView = createGraphics(width/2,height, P3D);
@@ -30,39 +34,31 @@ void setup() {
 
 }
 
+float perlin(float posX, int j, float posY, int i, int sizeNoise, float pasPerlin){
+  return map(noise(posX + j * pasPerlin, posY + i * pasPerlin), 0, 1, -sizeNoise, sizeNoise);
+}
+
 void draw() {
-  //up arrow fly
-  if (keyCode == LEFT)
-  {
-    flying-=0.03;
-  }
-  //down arrow reverse fly
-  else if (keyCode == RIGHT)
-  {
-    flying+=0.03;
-  }
+  float pasPerlin = 0.01;
+  int sizeNoise = 20;
+  mesh.move();
 
 
-
-
-  float xoff = flying;
-  for (int x = 0; x < cols; x++)
-  {
+  float xoff = 0;
+  for (int x = 0; x < cols; x++){
     float yoff = 0;
     for (int y = 0; y < rows; y++)
     {
-      terrain[x][y] = map(noise(xoff, yoff), 0, 1, -20, 20);
-
       //Deuxième bruit de perlin permettant de faire des variations de texturing sur le sol
       float m = 1 * noise(3 * xoff, 3 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
       terrainTexture[x][y] = pow(m, 1.42);
-      yoff += 0.01;
+      yoff += pasPerlin;
     }
-    xoff += 0.01;
+    xoff += pasPerlin;
   }
 
-  drawPlanar(pgPlanarView, cols, rows, terrain);
-  mapCylinder(pgMappedView, cols, rows, 100, terrain);
+  drawPlanar(pgPlanarView, cols, rows, sizeNoise, pasPerlin, mesh);
+  mapCylinder(pgMappedView, cols, rows, 100, sizeNoise, pasPerlin, mesh);
 
   image(pgPlanarView, 0,0);
   image(pgMappedView, width/2,0);

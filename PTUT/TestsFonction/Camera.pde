@@ -27,11 +27,11 @@ class Camera {
   }
 
   void processKeyboardEvent(){
-    if (keyCode == UP)
+    if (key == 'e')
     {
       this.centerY += 1.0;
     }
-    else if (keyCode == DOWN)
+    else if (key == 'd')
     {
       this.centerY -= 1.0;
     }
