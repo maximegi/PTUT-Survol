@@ -11,7 +11,7 @@ int h = 5000;
 float pasPerlin = 0.01;
 int sizeNoise = 40;
 
-Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
+MovingArea mesh = new MovingArea(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 
 //Camera parameters (to be initialized)
 float cameraWidth = 800;

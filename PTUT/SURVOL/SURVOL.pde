@@ -28,7 +28,7 @@ void draw()
     }
     xoff += pasPerlin;
   }
-
+  noStroke();
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh);
   mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh);
 

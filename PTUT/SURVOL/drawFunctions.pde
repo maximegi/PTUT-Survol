@@ -1,4 +1,4 @@
-void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_terrain){
+void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m_terrain){
   camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
   camera.update();
   //translate(width/4,height/2);
@@ -30,11 +30,11 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
         //y future
         float yf = j+1;
         // current vertice's height
-        float currentHeight = perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + j*pasPerlin);
+        float currentHeight = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
         //z past
         float zp = sizeNoise * currentHeight;
         //z future
-        float zf = perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
+        float zf = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
@@ -47,7 +47,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
   }
 }
 
-void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terrain m_terrain){
+void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, MovingArea m_terrain){
   camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
   camera.update();
   //translate(width/4,height/2);
@@ -82,11 +82,11 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terr
         //y future
         float yf = j+1;
         // current vertice's height
-        float currentHeight = perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + j*pasPerlin);
+        float currentHeight = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
         //z past
         float zp = sin( radians( i * angle ) ) * r + currentHeight * sizeNoise;
         //z future
-        float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
+        float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
