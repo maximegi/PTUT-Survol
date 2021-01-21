@@ -1,4 +1,4 @@
-void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_terrain){
+void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_terrain, RefinedTerrain m_refinedTerrain){
   camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
   camera.update();
   //translate(width/4,height/2);
@@ -37,7 +37,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
         float zf = perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
-        color biome = getBiome(currentHeight,terrainTexture[i][j], true);
+        color biome = m_refinedTerrain.getFillColor(currentHeight, terrainTexture[i][j]);
         fill(biome);
 
         vertex( yp, -zp, x);
@@ -47,7 +47,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
   }
 }
 
-void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terrain m_terrain){
+void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terrain m_terrain, RefinedTerrain m_refinedTerrain){
   camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
   camera.update();
   //translate(width/4,height/2);
@@ -89,7 +89,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terr
         float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
-        color biome = getBiome(currentHeight,terrainTexture[i][j], true);
+        color biome = m_refinedTerrain.getFillColor(currentHeight, terrainTexture[i][j]);
         fill(biome);
         // add trees
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),

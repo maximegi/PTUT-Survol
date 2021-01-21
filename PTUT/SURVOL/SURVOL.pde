@@ -15,6 +15,7 @@ float perlin(float posX, float posY)
 void draw()
 {
   mesh.move();
+  texturedTerrain.update();
 
   float xoff = 0;
   for (int x = 0; x < cols; x++){
@@ -29,7 +30,7 @@ void draw()
     xoff += pasPerlin;
   }
 
-  //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh);
-  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh);
+  //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
 }
