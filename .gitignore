@@ -6,3 +6,5 @@ PTUT/cylindre/build
 PTUT/cylindreTexture/build
 PTUT/Plan/build
 PTUT/TestSphere/build
+
+*.class
