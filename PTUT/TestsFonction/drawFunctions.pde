@@ -37,21 +37,6 @@ void drawPlanar(PGraphics pg, int cols, int rows, int sizeNoise, float pasPerlin
 
         pg.fill(getBiome(perlin(m_terrain.x(), i, m_terrain.y(), j, sizeNoise, pasPerlin),terrainTexture[i][j], true));
 
-        float ran = map(perlin(m_terrain.x(), i, m_terrain.y(), j, sizeNoise, pasPerlin), -sizeNoise, sizeNoise, 0, 100);
-        //println(ran);
-        if(ran <= 30){
-          pg.pushMatrix();
-          //translate(+rows/2,0);
-          pg.rotateX(PI/2);
-          //translate(-yp + cols/2,zp + offsetTree,x);
-          pg.translate(x-rows/2,zp + offsetTree,-yp + cols/2);
-          //pg.translate(yp,-zp+ offsetTree,x);
-          pg.scale(2);
-          pg.fill(0,255,0);
-          pg.shape(tree);
-          pg.popMatrix();
-        }
-
         pg.vertex( yp, -zp, x);
 
         pg.vertex( yf,  -zf, x);
@@ -96,11 +81,37 @@ void mapCylinder(PGraphics pg, int cols, int rows, int r, int sizeNoise, float p
         float yp = j;
         //y future
         float yf = j+1;
+        // current vertice's height
+        float currentHeight = perlin(m_terrain.x(), i, m_terrain.y(), j, sizeNoise, pasPerlin);
         //z past
-        float zp = sin( radians( i * angle ) ) * r + perlin(m_terrain.x(), i, m_terrain.y(), j, sizeNoise, pasPerlin);
+        float zp = sin( radians( i * angle ) ) * r + currentHeight;
         //z future
         float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.x(), i, m_terrain.y(), j+1, sizeNoise, pasPerlin);
-        pg.fill(getBiome(perlin(m_terrain.x(), i, m_terrain.y(), j, sizeNoise, pasPerlin),terrainTexture[i][j], true));
+
+        // fill terrain with the appropriate color
+        color biome = getBiome(currentHeight,terrainTexture[i][j], true);
+        pg.fill(biome);
+
+        // add trees
+        // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
+        // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice
+
+        float ran = map(perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin), -sizeNoise, sizeNoise, 0, 100);
+
+        /*if(ran <= 30){
+        //if(biome != waterTmp){
+          pg.pushMatrix();
+          pg.translate(yp, -zp, x);
+          pg.rotateX(PI);
+          pg.scale(2);
+          pg.fill(0,255,0);
+          pg.shape(tree);
+          pg.popMatrix();
+        //}*/
+
+
+        //}
+
         pg.vertex( yp, -zp, x);
         pg.vertex( yf,  -zf, x);
     }

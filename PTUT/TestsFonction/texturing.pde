@@ -1,36 +1,76 @@
+color grass = color(63,101,29);
+color grassTmp = color(0,0,0);
 
-color eau = color(45,127,150);
-color sable = color(229,217,194);
-color herbeClaire = color(180,191,65);
-color herbe = color(63,101,29);
-color herbeFoncee = color(38,80,14);
-color terre = color(158,127,79);
+color clay = color(158,127,79);
+color clayTmp = color(0,0,0);
 
+color sand = color(229,217,194);
+color sandTmp = color(0,0,0);
 
+color water = color(45,127,150);;
+color waterTmp = color(0,0,0);
 
-color getBiome(float h, float m, boolean water){
-  h = map(h, -20.0, 20, -1, 1);
-  float seuilEau = -1;
+color getBiome(float altitude, float m, boolean isWaterActive){
+  altitude = map(altitude, -20.0, 20, -1, 1);
+  float waterThreshold = -1;
 
-  if(water){
-    seuilEau = -0.2;
+  if(isWaterActive){
+    waterThreshold = -0.2;
   }
 
-  if(h <= seuilEau){
-    return color(red(eau),green(eau),map(h, -1, seuilEau, 1.5, 0.9)*blue(eau));
+  if(altitude <= waterThreshold){
+    waterTmp = color( red(water), green(water) , map(altitude, -1, waterThreshold, 1.5, 0.9) * blue(water));
+    return waterTmp;
   }
-  if(h <= seuilEau+0.05){
-    return sable;
+
+  if(altitude <= waterThreshold+0.05){
+    sandTmp = sand;
+    return sandTmp;
   }
-  if(h <= seuilEau+0.1){
-    //return terre;
-    return color(red(terre),green(terre)*map(h, seuilEau+0.05, seuilEau+0.1, 1, 1.12),blue(terre));
+
+  if(altitude <= waterThreshold+0.1){
+    clayTmp = color( red(clay), green(clay) * map(altitude, waterThreshold + 0.05, waterThreshold + 0.1, 1, 1.12) , blue(clay));
+    return clayTmp;
   }
-  if(h<=0.4){
-    return color(red(herbe)*m,green(herbe)*map(h, seuilEau+0.1, 0.4, 1, 0.8),blue(herbe));
+
+  if(altitude<=0.4){
+    grassTmp = color( red(grass) * m, green(grass) * map(altitude, waterThreshold + 0.1, 0.4, 1, 0.8), blue(grass));
+    return grassTmp;
   }
-  if(h <=0.6){
-    return color(63*m, 101*h, 29*h);
+
+  if(altitude <=0.6){
+    grassTmp = color( red(grass) * m, green(grass) * altitude, blue(grass) * altitude);
+    return grassTmp;
   }
-  return color(63, 101, 29);
+
+  return grass;
 }
+/*
+void treePlacement(){
+
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+      double nx = x/width - 0.5, ny = y/height - 0.5;
+      // blue noise is high frequency; try varying this
+      bluenoise[y][x] = noise(50 * nx, 50 * ny);
+    }
+  }
+
+  for (int yc = 0; yc < height; yc++) {
+    for (int xc = 0; xc < width; xc++) {
+      double max = 0;
+      // there are more efficient algorithms than this
+      for (int yn = yc - R; yn <= yc + R; yn++) {
+        for (int xn = xc - R; xn <= xc + R; xn++) {
+          if (0 <= yn && yn < height && 0 <= xn && xn < width) {
+            double e = bluenoise[yn][xn];
+            if (e > max) { max = e; }
+          }
+        }
+      }
+      if (bluenoise[yc][xc] == max) {
+        // place tree at xc,yc
+      }
+    }
+}
+}*/
