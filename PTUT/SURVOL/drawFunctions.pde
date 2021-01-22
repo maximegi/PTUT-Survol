@@ -17,7 +17,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-
+  translate(-cols/2,0);
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -30,23 +30,23 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         //y future
         float yf = j+1;
 
-        float xperlinc = m_terrain.getX() +(i * (mesh.direction.x)) * pasPerlin;
-        float yperlinc = m_terrain.getY() + (j * (mesh.orthodirection.y))*pasPerlin;
-        float xperlinf = xperlinc + (i * (mesh.orthodirection.x))*pasPerlin;
-        float yperlinf = m_terrain.getY() + ((j+1) * (mesh.orthodirection.y))*pasPerlin;
+        float xperlin = m_terrain.getX() + ((i*pasPerlin*mesh.direction.x) + (j * pasPerlin * mesh.orthodirection.x));
+        float yperlinc = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + (j * pasPerlin * mesh.orthodirection.y));
+        float yperlinf = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + ((j+1) * pasPerlin * mesh.orthodirection.y));
+
         // current vertice's height
-        float currentHeight = perlin(xperlinc, yperlinc);
+        float currentHeight = perlin(xperlin, yperlinc);
         //z past
         float zp = sizeNoise * currentHeight;
         //z future
-        float zf = perlin(xperlinf, yperlinf) * sizeNoise;
+        float zf = perlin(xperlin, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
         fill(biome);
 
-        vertex( yp - rows/2, -zp, x - cols/2);
-        vertex( yf - rows/2,  -zf, x - cols/2);
+        vertex( yp, -zp, x);
+        vertex( yf,  -zf, x);
     }
     endShape();
   }
@@ -68,10 +68,10 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   stroke(255);
   noFill();
 
-  // noStroke();
+  noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-
+  translate(-cols/2,0);
   //we're working with a half cylinder
   float angle = 180.0 / cols;
 
@@ -86,17 +86,21 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         float yp = j;
         //y future
         float yf = j+1;
+
+        float xperlin = m_terrain.getX() + ((i*pasPerlin*mesh.direction.x) + (j * pasPerlin * mesh.orthodirection.x));
+        float yperlinc = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + (j * pasPerlin * mesh.orthodirection.y));
+        float yperlinf = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + ((j+1) * pasPerlin * mesh.orthodirection.y));
+
         // current vertice's height
-        float currentHeight = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
+        float currentHeight = perlin(xperlin, yperlinc);
         //z past
         float zp = sin( radians( i * angle ) ) * r + currentHeight * sizeNoise;
         //z future
-        float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + (j+1)*pasPerlin) * sizeNoise;
+        float zf = sin( radians( i * angle ) ) * r + perlin(xperlin, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
-        stroke(255);
-        //fill(biome);
+        fill(biome);
         // add trees
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
         // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice

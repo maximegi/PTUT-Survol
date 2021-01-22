@@ -29,10 +29,6 @@ void draw()
     xoff += pasPerlin;
   }
   drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh);
-  stroke(255);
-  noFill();
-  line(0,0, 40 * mesh.direction.x, 40 * mesh.direction.y);
-  line(0,0, 40 * mesh.orthodirection.x, 40 * mesh.orthodirection.y);
   //mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh);
 
 }

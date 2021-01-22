@@ -57,17 +57,6 @@ class MovingArea
     if (EAST && SHIFTPRESSED) this.rotatemArea(deltaAngle);
     println("x=",direction.x);
     println("y=",direction.y);
-    // pushMatrix();
-    //   translate(translation.x, translation.y);
-    //   rotate(atan2(direction.y, direction.x));
-    //   //rect(position.x, position.y, w, h);
-    //   //bottom left
-    //   float x = modelX(-w/2, -h/2, 0);
-    //   float y = modelY(-w/2, -h/2, 0);
-    // popMatrix();
-    // // //bottom left point
-    // position.x = x;
-    // position.y = y;
   }
 
 }
