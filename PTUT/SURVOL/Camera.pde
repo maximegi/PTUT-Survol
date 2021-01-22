@@ -12,7 +12,21 @@ class Camera {
   float upY = 1;
   float upZ = 0;
 
+  void initCam(float cameraWidth, float cameraHeight, float eyeX, float eyeY, float eyeZ,
+              float centerX, float centerY, float centerZ, float upX, float upY, float upZ){
+    this.cameraWidth = cameraWidth;
+    this.cameraHeight = cameraHeight;
+    this.eyeX = eyeX;
+    this.eyeY = eyeY;
+    this.eyeZ = eyeZ;
+    this.centerX = centerX;
+    this.centerY = centerY;
+    this.centerZ = centerZ;
+    this.upX = upX;
+    this.upY = upY;
+    this.upZ = upZ;
 
+  }
   void useCam(){
     camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   }
@@ -27,15 +41,22 @@ class Camera {
   }
 
   void processKeyboardEvent(){
-    if (key == 'e')
+    if (key == 'o')
     {
       this.centerY += 1.0;
     }
-    else if (key == 'd')
+    else if (key == 'l')
     {
       this.centerY -= 1.0;
     }
-
+    else if (key == 'k')
+    {
+      this.centerX += 1.0;
+    }
+    else if (key == 'm')
+    {
+      this.centerX -= 1.0;
+    }
     else if (key == 'z')
     {
       this.eyeY += 1.0;
@@ -44,5 +65,6 @@ class Camera {
     {
       this.eyeY -= 1.0;
     }
+
   }
 }

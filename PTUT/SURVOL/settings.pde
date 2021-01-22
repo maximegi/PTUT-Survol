@@ -1,7 +1,7 @@
 /*import peasy.*;
 
 PeasyCam cam;*/
-Camera camera = new Camera();
+Camera customCamera = new Camera();
 
 int cols, rows;
 int scl = 20;

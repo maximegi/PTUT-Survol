@@ -1,11 +1,17 @@
 void setup()
 {
   size(1080, 720, P3D);
+  initValues();
+    background(100,100,100);
   //cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
   terrainTexture = new float[cols][rows];
-  initValues();
+
+  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ,
+              centerX, centerY, centerZ, upX, upY, upZ);
+  println(customCamera.cameraWidth);
+
 }
 
 float perlin(float posX, float posY)
@@ -15,7 +21,11 @@ float perlin(float posX, float posY)
 
 void draw()
 {
+  customCamera.useCam();
+  customCamera.update();
   mesh.move();
+  //drawAxes();
+
 
   float xoff = 0;
   for (int x = 0; x < cols; x++){

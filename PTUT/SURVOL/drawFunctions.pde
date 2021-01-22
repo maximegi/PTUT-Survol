@@ -1,6 +1,5 @@
 void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_terrain){
-  camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
-  camera.update();
+
   //translate(width/4,height/2);
   background(100);
   stroke(255, 0, 0);
@@ -17,7 +16,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-
+  translate(-cols/2,0);
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -48,8 +47,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
 }
 
 void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terrain m_terrain){
-  camera(camera.eyeX,camera.eyeY,camera.eyeZ,camera.centerX,camera.centerY,camera.centerZ,camera.upX,camera.upY,camera.upZ);
-  camera.update();
+
   //translate(width/4,height/2);
   background(100,100,100);
   stroke(255, 0, 0);
@@ -66,7 +64,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terr
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-
+  translate(-cols/2,0);
   //we're working with a half cylinder
   float angle = 180.0 / cols;
 
