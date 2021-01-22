@@ -5,6 +5,7 @@ void setup()
   cols = w / scl;
   rows = h / scl;
   terrainTexture = new float[cols][rows];
+  initValues();
 }
 
 float perlin(float posX, float posY)
