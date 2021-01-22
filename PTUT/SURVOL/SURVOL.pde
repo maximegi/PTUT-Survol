@@ -5,6 +5,7 @@ void setup()
   cols = w / scl;
   rows = h / scl;
   terrainTexture = new float[cols][rows];
+  texturedTerrain.addTreeToList("assets/lowpolytree.obj");
 }
 
 float perlin(float posX, float posY)
@@ -12,25 +13,27 @@ float perlin(float posX, float posY)
   return map(noise(posX, posY), 0, 1, -1, 1);
 }
 
+float perlinTexture(float posX, float posY)
+{
+  float m = 1 * noise(3 * posX, 3 * posY) +  0.5 * noise(2 * posX, 2 * posY) + 0.25 * noise(4 * posX, 4 * posY);
+  m = pow(m, 1.42);
+  //return map(m, 0, pow(1.75, 1.42), 0, 1);
+  return m;
+}
+
+float perlinTrees(float posX, float posY)
+{
+  float nX = posX/cols -0.5;
+  float nY = posY/rows -0.5;
+  return noise(50*nX, 50*nY);
+}
+
 void draw()
 {
   mesh.move();
   texturedTerrain.update();
 
-  float xoff = 0;
-  for (int x = 0; x < cols; x++){
-    float yoff = 0;
-    for (int y = 0; y < rows; y++)
-    {
-      //Deuxième bruit de perlin permettant de faire des variations de texturing sur le sol
-      float m = 1 * noise(3 * xoff, 3 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
-      terrainTexture[x][y] = pow(m, 1.42);
-      yoff += pasPerlin;
-    }
-    xoff += pasPerlin;
-  }
-
-  //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
-  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  //mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
 }

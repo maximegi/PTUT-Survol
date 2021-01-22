@@ -48,13 +48,24 @@ class RefinedTerrain{
       return grass;
     }
 
+    void placeTrees(color currentColor, float x, float y, float z){
+      if(currentColor != waterTmp){
+        pushMatrix();
+        translate(x, y, z);
+        rotateX(PI);
+        scale(2);
+        shape(this.trees.get(0));
+        popMatrix();
+      }
+    }
+
     void changeWaterStatus(){
       if(this.isWaterActive){this.isWaterActive = false;}
       else{this.isWaterActive = true;}
     }
 
-    void addTreeToList(String path){
-      this.trees.add(loadShape(path));
+    void addTreeToList(String filename){
+      this.trees.add(loadShape(filename));
     }
 
     void update(){

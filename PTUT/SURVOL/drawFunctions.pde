@@ -37,8 +37,39 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, Terrain m_te
         float zf = perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
-        color biome = m_refinedTerrain.getFillColor(currentHeight, terrainTexture[i][j]);
+        color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.x() +i*pasPerlin, m_terrain.y() + j*pasPerlin));
         fill(biome);
+
+        double max = 0;
+        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
+          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
+            float xtmp = xn*pasPerlin + m_terrain.x();
+            float ytmp = yn*pasPerlin + m_terrain.y();
+            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
+              double e = perlinTrees(xtmp, ytmp);
+              if (e > max) { max = e; }
+
+            }
+          }
+        }
+        if (perlinTrees(m_terrain.x() +i*pasPerlin, m_terrain.y() + j*pasPerlin) == max) {
+          texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }
+
+        /*
+        double max = 0;
+
+        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
+          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
+            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
+              double e = perlinTrees(xn, yn);
+              if (e > max) { max = e; }
+            }
+          }
+        }
+        if (perlinTrees(i, j) == max) {
+          texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }*/
 
         vertex( yp, -zp, x);
         vertex( yf,  -zf, x);
@@ -89,9 +120,23 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Terr
         float zf = sin( radians( i * angle ) ) * r + perlin(m_terrain.x() +i*pasPerlin, m_terrain.y() + (j+1)*pasPerlin) * sizeNoise;
 
         // fill terrain with the appropriate color
-        color biome = m_refinedTerrain.getFillColor(currentHeight, terrainTexture[i][j]);
+        color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.x() +i*pasPerlin, m_terrain.y() + j*pasPerlin));
         fill(biome);
         // add trees
+        double max = 0;
+
+        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
+          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
+            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
+              double e = perlinTrees(xn, yn);
+              if (e > max) { max = e; }
+            }
+          }
+        }
+        if (perlinTrees(i, j) == max) {
+          texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }
+        //texturedTerrain.placeTrees(biome, yp, -zp, x);
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
         // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice
 

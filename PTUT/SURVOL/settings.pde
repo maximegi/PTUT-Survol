@@ -12,7 +12,9 @@ float pasPerlin = 0.01;
 int sizeNoise = 40;
 
 Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
-RefinedTerrain texturedTerrain = new RefinedTerrain(-0.2, 0.05, 0.05, 2);
+RefinedTerrain texturedTerrain = new RefinedTerrain(-0.2, 0.05, 0.05, 3);
+
+
 
 //Camera parameters (to be initialized)
 float cameraWidth = 800;
