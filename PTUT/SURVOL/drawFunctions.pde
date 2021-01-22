@@ -29,19 +29,24 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         float yp = j;
         //y future
         float yf = j+1;
+
+        float xperlinc = m_terrain.getX() +(i * (mesh.direction.x)) * pasPerlin;
+        float yperlinc = m_terrain.getY() + (j * (mesh.orthodirection.y))*pasPerlin;
+        float xperlinf = xperlinc + (i * (mesh.orthodirection.x))*pasPerlin;
+        float yperlinf = m_terrain.getY() + ((j+1) * (mesh.orthodirection.y))*pasPerlin;
         // current vertice's height
-        float currentHeight = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
+        float currentHeight = perlin(xperlinc, yperlinc);
         //z past
         float zp = sizeNoise * currentHeight;
         //z future
-        float zf = perlin(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + (j+1)*pasPerlin) * sizeNoise;
+        float zf = perlin(xperlinf, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
         fill(biome);
 
-        vertex( yp, -zp, x);
-        vertex( yf,  -zf, x);
+        vertex( yp - rows/2, -zp, x - cols/2);
+        vertex( yf - rows/2,  -zf, x - cols/2);
     }
     endShape();
   }
@@ -63,7 +68,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   stroke(255);
   noFill();
 
-  noStroke();
+  // noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
 
@@ -90,13 +95,14 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
-        fill(biome);
+        stroke(255);
+        //fill(biome);
         // add trees
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
         // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice
 
-        vertex( yp, -zp, x);
-        vertex( yf,  -zf, x);
+        vertex( yp - rows/2, -zp, x - cols/2);
+        vertex( yf - rows/2,  -zf, x - cols/2);
     }
     endShape();
   }

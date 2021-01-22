@@ -5,7 +5,7 @@ class MovingArea
   int h;
 
   float deltaPos = .01;
-  float deltaAngle = .1;
+  float deltaAngle = .01;
 
   PVector position = new PVector(0., 0.);
   PVector direction = new PVector(1., 0.);
@@ -31,31 +31,43 @@ class MovingArea
     position.y += deltaPos * direction.y;
   }
 
-  void rotatemArea(float angle)
+  void moveBackward()
   {
-    direction.x = direction.x * cos(angle) + direction.y * sin(angle);
-    direction.y = -direction.x * sin(angle) + direction.y * cos(angle);
+    position.x -= deltaPos * direction.x;
+    position.y -= deltaPos * direction.y;
+  }
+
+  void rotatemArea(float theta)
+  {
+    float xTemp1 = direction.x;
+    float xTemp2 = orthodirection.x;
+    direction.x = direction.x*cos(theta) - direction.y*sin(theta);
+    direction.y = xTemp1*sin(theta) + direction.y*cos(theta);
+    orthodirection.x = orthodirection.x*cos(theta) - orthodirection.y*sin(theta);
+    orthodirection.y = xTemp2*sin(theta) + orthodirection.y*cos(theta);
   }
 
   void move()
   {
     if (NORTH) this.moveForward();
-    if (SOUTH) this.moveForward();
+    if (SOUTH) this.moveBackward();
     if (WEST && !SHIFTPRESSED) this.rotatemArea(-deltaAngle);
     if (EAST && !SHIFTPRESSED) this.rotatemArea(deltaAngle);
-    // if (WEST && SHIFTPRESSED) {rotate2D(direction, -deltaAngle); rotate2D(orthodirection, -deltaAngle);}
-    // if (EAST && SHIFTPRESSED) {rotate2D(direction, deltaAngle); rotate2D(orthodirection, deltaAngle);}
+    if (WEST && SHIFTPRESSED) this.rotatemArea(-deltaAngle);
+    if (EAST && SHIFTPRESSED) this.rotatemArea(deltaAngle);
+    println("x=",direction.x);
+    println("y=",direction.y);
     // pushMatrix();
     //   translate(translation.x, translation.y);
     //   rotate(atan2(direction.y, direction.x));
-    //   // rect(-w/2, -h/2, w, h);
+    //   //rect(position.x, position.y, w, h);
     //   //bottom left
     //   float x = modelX(-w/2, -h/2, 0);
     //   float y = modelY(-w/2, -h/2, 0);
     // popMatrix();
-    // //bottom left point
-    // p.x = x;
-    // p.y = y;
+    // // //bottom left point
+    // position.x = x;
+    // position.y = y;
   }
 
 }

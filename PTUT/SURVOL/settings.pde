@@ -4,7 +4,7 @@ PeasyCam cam;*/
 Camera camera = new Camera();
 
 int cols, rows;
-int scl = 20;
+int scl = 40;
 int w = 5000;
 int h = 5000;
 
