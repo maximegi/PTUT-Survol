@@ -27,7 +27,6 @@ class Camera {
     this.upZ = upZ;
 
   }
-
   void useCam(){
     camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   }
@@ -66,5 +65,6 @@ class Camera {
     {
       this.eyeY -= 1.0;
     }
+
   }
 }

@@ -5,7 +5,7 @@ class MovingArea
   int h;
 
   float deltaPos = .01;
-  float deltaAngle = .0008;
+  float deltaAngle = .01;
 
   PVector position = new PVector(0., 0.);
   PVector direction = new PVector(1., 0.);
@@ -16,6 +16,10 @@ class MovingArea
 
   float getX(){return position.x;}
   float getY(){return position.y;}
+  float getDirX(){return direction.x;}
+  float getDirY(){return direction.y;}
+  float getOrthoX(){return orthodirection.x;}
+  float getOrthoY(){return orthodirection.y;}
 
   MovingArea(float x, float y, int w, int h)
   {
@@ -31,35 +35,47 @@ class MovingArea
     position.y += deltaPos * direction.y;
   }
 
-  void rotatemArea(float angle)
+  void moveBackward()
   {
-    direction.x = direction.x * cos(angle) + direction.y * sin(angle);
-    direction.y = -direction.x * sin(angle) + direction.y * cos(angle);
+    position.x -= deltaPos * direction.x;
+    position.y -= deltaPos * direction.y;
+  }
+
+  void rotatemArea(float theta)
+  {
+    float xTemp1 = direction.x;
+    float xTemp2 = orthodirection.x;
+    direction.x = direction.x*cos(theta) - direction.y*sin(theta);
+    direction.y = xTemp1*sin(theta) + direction.y*cos(theta);
+    orthodirection.x = orthodirection.x*cos(theta) - orthodirection.y*sin(theta);
+    orthodirection.y = xTemp2*sin(theta) + orthodirection.y*cos(theta);
   }
 
   void move()
   {
     if (NORTH) this.moveForward();
-    if (SOUTH) this.moveForward();
+    if (SOUTH) this.moveBackward();
     if (WEST && !SHIFTPRESSED) this.rotatemArea(-deltaAngle);
     if (EAST && !SHIFTPRESSED) this.rotatemArea(deltaAngle);
-    // if (WEST && SHIFTPRESSED) {rotate2D(direction, -deltaAngle); rotate2D(orthodirection, -deltaAngle);}
-    // if (EAST && SHIFTPRESSED) {rotate2D(direction, deltaAngle); rotate2D(orthodirection, deltaAngle);}
-    // pushMatrix();
-    //   translate(translation.x, translation.y);
-    //   rotate(atan2(direction.y, direction.x));
-    //   // rect(-w/2, -h/2, w, h);
-    //   //bottom left
-    //   float x = modelX(-w/2, -h/2, 0);
-    //   float y = modelY(-w/2, -h/2, 0);
-    // popMatrix();
-    // //bottom left point
-    // p.x = x;
-    // p.y = y;
+    if (WEST && SHIFTPRESSED) this.rotatemArea(-deltaAngle);
+    if (EAST && SHIFTPRESSED) this.rotatemArea(deltaAngle);
   }
+
 }
 
 boolean NORTH, SOUTH, WEST, EAST, SHIFTPRESSED;
+
+
+void keyReleased()
+{
+  final int k = keyCode;
+  //↓↓↓ uncomment to manually move the mesh ↓↓↓ if comment dont push UP and DOWN another time
+  if      (k == UP) NORTH = false;
+  else if (k == DOWN) SOUTH = false;
+  else if (k == LEFT) WEST  = false;
+  else if (k == RIGHT) EAST  = false;
+  else if (k == SHIFT) SHIFTPRESSED = false;
+}
 
 void keyPressed()
 {
@@ -72,23 +88,4 @@ void keyPressed()
   if (key == 'p' || key == 'P'){
     exportValues();
   }
-}
-
-void keyReleased()
-{
-  /*
-  final int k = keyCode;
-  //↓↓↓ uncomment to manually move the mesh ↓↓↓ if comment dont push UP and DOWN another time
-  if      (k == UP) NORTH = false;
-  else if (k == DOWN) SOUTH = false;
-  else if (k == LEFT) WEST  = false;
-  else if (k == RIGHT) EAST  = false;
-  else if (k == SHIFT) SHIFTPRESSED = false;*/
-}
-
-void rotate2D(PVector v, float theta)
-{
-  float xTemp = v.x;
-  v.x = v.x*cos(theta) - v.y*sin(theta);
-  v.y = xTemp*sin(theta) + v.y*cos(theta);
 }
