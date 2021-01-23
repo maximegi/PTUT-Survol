@@ -101,7 +101,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-  scale(4);
+  scale(2);
   translate(-cols/2,rows/3);
   //we're working with a half cylinder
   float angle = 180.0 / cols;
@@ -132,11 +132,11 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         float zf = sin( radians( i * angle ) ) * r + perlin(xperlinf, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
-        color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
+        color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
         fill(biome);
         // add trees
 
-        float value = perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
+        float value = perlinTrees(xperlinc, yperlinc);
         if ((int)(value/10) %11 == 0) {
             texturedTerrain.placeTrees(biome, yp, -zp, x);
         }
