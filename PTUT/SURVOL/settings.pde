@@ -1,6 +1,6 @@
-/*import peasy.*;
+import peasy.*;
 
-PeasyCam cam;*/
+PeasyCam cam;
 Camera camera = new Camera();
 
 int cols, rows;
@@ -18,7 +18,7 @@ float cameraWidth = 800;
 float cameraHeight = 800;
 float eyeX = 0;//cameraWidth/2;
 float eyeY = 0;//cameraHeight/2;
-float eyeZ = (cameraHeight/2)/tan(PI/6);
+float eyeZ = 0.4*(cameraHeight/2)/tan(PI/6);
 float centerX = 0;//cameraWidth/2;
 float centerY = 0;//cameraHeight/2;
 float centerZ = 0.0;

@@ -16,6 +16,10 @@ class MovingArea
 
   float getX(){return position.x;}
   float getY(){return position.y;}
+  float getDirX(){return direction.x;}
+  float getDirY(){return direction.y;}
+  float getOrthoX(){return orthodirection.x;}
+  float getOrthoY(){return orthodirection.y;}
 
   MovingArea(float x, float y, int w, int h)
   {
@@ -55,8 +59,6 @@ class MovingArea
     if (EAST && !SHIFTPRESSED) this.rotatemArea(deltaAngle);
     if (WEST && SHIFTPRESSED) this.rotatemArea(-deltaAngle);
     if (EAST && SHIFTPRESSED) this.rotatemArea(deltaAngle);
-    println("x=",direction.x);
-    println("y=",direction.y);
   }
 
 }
@@ -82,11 +84,4 @@ void keyReleased()
   else if (k == LEFT) WEST  = false;
   else if (k == RIGHT) EAST  = false;
   else if (k == SHIFT) SHIFTPRESSED = false;
-}
-
-void rotate2D(PVector v, float theta)
-{
-  float xTemp = v.x;
-  v.x = v.x*cos(theta) - v.y*sin(theta);
-  v.y = xTemp*sin(theta) + v.y*cos(theta);
 }

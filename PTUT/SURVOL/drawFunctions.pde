@@ -23,23 +23,26 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
     beginShape(TRIANGLE_STRIP);
     for (int i = 0; i < cols; i++)
     {
-        //cartesian coordinates
+        //mesh grid
         float x = i;
         //y past
         float yp = j;
         //y future
         float yf = j+1;
 
-        float xperlin = m_terrain.getX() + ((i*pasPerlin*mesh.direction.x) + (j * pasPerlin * mesh.orthodirection.x));
-        float yperlinc = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + (j * pasPerlin * mesh.orthodirection.y));
-        float yperlinf = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + ((j+1) * pasPerlin * mesh.orthodirection.y));
+        //compute xperlincurrent and yperlincurrent considering rotation from the center of the mesh
+        float xperlinc = m_terrain.getX() + (((i - cols/2) * pasPerlin * mesh.getDirX()) + ((j - rows/2) * pasPerlin * mesh.getOrthoX()));
+        float yperlinc = m_terrain.getY() + (((i - cols/2) * pasPerlin * mesh.getDirY()) + ((j - rows/2) * pasPerlin * mesh.getOrthoY()));
+        //compute xperlinfutur and yperlinfutur considering rotation from the center of the mesh
+        float xperlinf = m_terrain.getX() + (((i - cols/2) * pasPerlin * mesh.getDirX()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoX()));
+        float yperlinf = m_terrain.getY() + (((i - cols/2) * pasPerlin * mesh.getDirY()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoY()));
 
         // current vertice's height
-        float currentHeight = perlin(xperlin, yperlinc);
+        float currentHeight = perlin(xperlinc, yperlinc);
         //z past
         float zp = sizeNoise * currentHeight;
         //z future
-        float zf = perlin(xperlin, yperlinf) * sizeNoise;
+        float zf = perlin(xperlinf, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
@@ -87,16 +90,19 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         //y future
         float yf = j+1;
 
-        float xperlin = m_terrain.getX() + ((i*pasPerlin*mesh.direction.x) + (j * pasPerlin * mesh.orthodirection.x));
-        float yperlinc = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + (j * pasPerlin * mesh.orthodirection.y));
-        float yperlinf = m_terrain.getY() + ((i*pasPerlin*mesh.direction.y) + ((j+1) * pasPerlin * mesh.orthodirection.y));
+        //compute xperlincurrent and yperlincurrent considering rotation from the center of the mesh
+        float xperlinc = m_terrain.getX() + (((i - cols/2) * pasPerlin * mesh.getDirX()) + ((j - rows/2) * pasPerlin * mesh.getOrthoX()));
+        float yperlinc = m_terrain.getY() + (((i - cols/2) * pasPerlin * mesh.getDirY()) + ((j - rows/2) * pasPerlin * mesh.getOrthoY()));
+        //compute xperlinfutur and yperlinfutur considering rotation from the center of the mesh
+        float xperlinf = m_terrain.getX() + (((i - cols/2) * pasPerlin * mesh.getDirX()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoX()));
+        float yperlinf = m_terrain.getY() + (((i - cols/2) * pasPerlin * mesh.getDirY()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoY()));
 
         // current vertice's height
-        float currentHeight = perlin(xperlin, yperlinc);
+        float currentHeight = perlin(xperlinc, yperlinc);
         //z past
         float zp = sin( radians( i * angle ) ) * r + currentHeight * sizeNoise;
         //z future
-        float zf = sin( radians( i * angle ) ) * r + perlin(xperlin, yperlinf) * sizeNoise;
+        float zf = sin( radians( i * angle ) ) * r + perlin(xperlinf, yperlinf) * sizeNoise;
 
         // fill terrain with the appropriate color
         color biome = getBiome(currentHeight,terrainTexture[i][j], true);
@@ -105,8 +111,8 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
         // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice
 
-        vertex( yp - rows/2, -zp, x - cols/2);
-        vertex( yf - rows/2,  -zf, x - cols/2);
+        vertex( yp, -zp, x);
+        vertex( yf,  -zf, x);
     }
     endShape();
   }
