@@ -4,7 +4,11 @@ void setup()
   //cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
-  terrainTexture = new float[cols][rows];
+  initValues();
+  background(100,100,100);
+  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+  //println(customCamera.cameraWidth);
+
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
 }
 
@@ -30,7 +34,10 @@ float perlinTrees(float posX, float posY)
 
 void draw()
 {
+  customCamera.useCam();
+  customCamera.update();
   mesh.move();
+   //drawAxes();
   texturedTerrain.update();
 
   drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);

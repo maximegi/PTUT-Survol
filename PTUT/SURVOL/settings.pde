@@ -1,7 +1,7 @@
 /*import peasy.*;
 
 PeasyCam cam;*/
-Camera camera = new Camera();
+Camera customCamera = new Camera();
 
 int cols, rows;
 int scl = 20;
@@ -11,7 +11,7 @@ int h = 5000;
 float pasPerlin = 0.01;
 int sizeNoise = 40;
 
-Terrain mesh = new Terrain(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
+MovingArea mesh = new MovingArea(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 RefinedTerrain texturedTerrain = new RefinedTerrain(-0.2, 0.05, 0.05, 3);
 
 
@@ -30,7 +30,6 @@ float upY = 1;
 float upZ = 0;
 
 //Texturing
-float[][] terrainTexture;
 
 color grass = color(63,101,29);
 color grassTmp = color(0,0,0);
