@@ -20,40 +20,40 @@ class RefinedTerrain{
     }
 
     color getFillColor(float altitude, float perlinTextureValue){
-      if(altitude <= this.m_waterThreshold && this.isWaterActive){
-        waterTmp = color( red(water), green(water) , map(altitude, -1, this.m_waterThreshold, 1.5, 0.9) * blue(water));
-        return waterTmp;
-      }
+      if(this.isWaterActive){
+        if(altitude <= this.m_waterThreshold){
+          waterTmp = color( red(water), green(water) , map(altitude, -1, this.m_waterThreshold, 1.5, 0.9) * blue(water));
+          return waterTmp;
+        }
+        else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold)){
+          sandTmp = sand;
+          return sandTmp;
+        }
 
-      if(altitude <= (this.m_waterThreshold + this.m_sandThreshold)  && this.isWaterActive){
-        sandTmp = sand;
-        return sandTmp;
+        else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold)){
+          clayTmp = color( red(clay), green(clay) * map(altitude, this.m_waterThreshold + this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 1, 1.12) , blue(clay));
+          return clayTmp;
+        }
       }
-
-      if(altitude <= (this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold) && this.isWaterActive){
-        clayTmp = color( red(clay), green(clay) * map(altitude, this.m_waterThreshold + this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 1, 1.12) , blue(clay));
-        return clayTmp;
-      }
-
       if(altitude<=0.4){
         grassTmp = color( red(grass) * perlinTextureValue, green(grass) * map(altitude, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0.4, 1, 0.8), blue(grass));
         return grassTmp;
       }
 
-      if(altitude <=0.6){
+      else if(altitude <=0.6){
         grassTmp = color( red(grass) * perlinTextureValue, green(grass) * altitude, blue(grass) * altitude);
         return grassTmp;
       }
 
-      return grass;
+      else {return grass;}
     }
 
     void placeTrees(color currentColor, float x, float y, float z){
-      if(currentColor != waterTmp){
+      if(currentColor != waterTmp && currentColor != sandTmp){
         pushMatrix();
-        translate(x, y, z);
+        translate(x, y-2, z);
         rotateX(PI);
-        scale(2);
+        scale(1.5);
         shape(this.trees.get(0));
         popMatrix();
       }

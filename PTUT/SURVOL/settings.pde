@@ -1,6 +1,3 @@
-/*import peasy.*;
-
-PeasyCam cam;*/
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
 

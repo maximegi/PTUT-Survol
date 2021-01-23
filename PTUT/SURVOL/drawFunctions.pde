@@ -37,7 +37,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         // fill terrain with the appropriate color
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
         fill(biome);
-
+        /*
         double max = 0;
         for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
           for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
@@ -53,7 +53,7 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         if (perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin) == max) {
           //texturedTerrain.placeTrees(biome, yp, -zp, x);
         }
-
+*/
         /*
         double max = 0;
 
@@ -93,8 +93,8 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
   //ambientLight(30, 30, 30);
-
-  translate(-cols/2,0); 
+  scale(4);
+  translate(-cols/2,rows/3);
   //we're working with a half cylinder
   float angle = 180.0 / cols;
   for(int j = 0; j < rows-1; j++)
@@ -119,6 +119,35 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
         fill(biome);
         // add trees
+
+        float value = perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin);
+        if ((int)(value/10) %11 == 0) {
+            texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }
+        /*
+        double max = 0;
+        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
+          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
+            float xtmp = xn*pasPerlin + m_terrain.getX();
+            float ytmp = yn*pasPerlin + m_terrain.getY();
+            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
+              double e = perlinTrees(xtmp, ytmp);
+              if (e > max) { max = e; }
+
+            }
+          }
+        }*//*
+        if (perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin) == max) {
+          texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }/*
+
+        //float result = isTree(m_terrain.getX(), m_terrain.getY(), j, i, m_refinedTerrain.m_treeDensity, pasPerlin);
+        /*
+        if (perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin) >10) {
+            texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }*/
+
+        /*
         double max = 0;
 
         for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
@@ -130,8 +159,8 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
           }
         }
         if (perlinTrees(i, j) == max) {
-          //texturedTerrain.placeTrees(biome, yp, -zp, x);
-        }
+          texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }*/
         //texturedTerrain.placeTrees(biome, yp, -zp, x);
         // il faudra faire une fonction plaçant les arbres, elle devra prendre en paramètres : le terrain (pour accèder à la liste d'abres associés),
         // le nom du biome (pour varier la densité en fonction du biome : sable, eau, herbe, terre ou en focntion de la hauteur), la position de la vertice

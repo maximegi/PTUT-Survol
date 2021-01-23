@@ -76,13 +76,14 @@ void keyPressed()
 
 void keyReleased()
 {
+  /*
   final int k = keyCode;
   //↓↓↓ uncomment to manually move the mesh ↓↓↓ if comment dont push UP and DOWN another time
   if      (k == UP) NORTH = false;
   else if (k == DOWN) SOUTH = false;
   else if (k == LEFT) WEST  = false;
   else if (k == RIGHT) EAST  = false;
-  else if (k == SHIFT) SHIFTPRESSED = false;
+  else if (k == SHIFT) SHIFTPRESSED = false;*/
 }
 
 void rotate2D(PVector v, float theta)
