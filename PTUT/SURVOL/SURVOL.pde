@@ -6,6 +6,7 @@ void setup()
   rows = h / scl;
   initValues();
   background(100,100,100);
+  texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, treeDensity);
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
   //println(customCamera.cameraWidth);
 

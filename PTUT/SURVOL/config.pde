@@ -19,6 +19,10 @@ void initValues(){
   upX = settings.getInt("upX");
   upY = settings.getInt("upY");
   upZ = settings.getInt("upZ");
+  waterThreshold = settings.getFloat("waterThreshold");
+  sandThreshold = settings.getFloat("sandThreshold");
+  clayThreshold = settings.getFloat("clayThreshold");
+  treeDensity = settings.getInt("treeDensity");
 }
 
 void exportValues(){
@@ -39,6 +43,10 @@ void exportValues(){
   json.setFloat("upX",customCamera.upX);
   json.setFloat("upY",customCamera.upY);
   json.setFloat("upZ",customCamera.upZ);
+  json.setFloat("waterThreshold",texturedTerrain.m_waterThreshold);
+  json.setFloat("sandThreshold",texturedTerrain.m_sandThreshold);
+  json.setFloat("clayThreshold",texturedTerrain.m_clayThreshold);
+  json.setInt("treeDensity",texturedTerrain.m_treeDensity);
   valuesExported.setJSONObject(0,json);
   saveJSONArray(valuesExported, "data/savedConfig.json");
 

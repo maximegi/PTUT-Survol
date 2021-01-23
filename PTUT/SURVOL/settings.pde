@@ -2,6 +2,7 @@
 
 PeasyCam cam;*/
 Camera customCamera = new Camera();
+RefinedTerrain texturedTerrain = new RefinedTerrain();
 
 int cols, rows;
 int scl = 20;
@@ -11,10 +12,12 @@ int h = 5000;
 float pasPerlin = 0.01;
 int sizeNoise = 40;
 
+float waterThreshold = 0.0;
+float sandThreshold = 0.0;
+float clayThreshold = 0.0;
+int treeDensity = 0;
+
 MovingArea mesh = new MovingArea(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
-RefinedTerrain texturedTerrain = new RefinedTerrain(-0.2, 0.05, 0.05, 3);
-
-
 
 //Camera parameters (to be initialized)
 float cameraWidth = 800;

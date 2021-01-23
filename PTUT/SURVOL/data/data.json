@@ -15,5 +15,9 @@
     "upX": 0,
     "upY": 1,
     "upZ": 0,
+    "waterThreshold": -0.2,
+    "sandThreshold": 0.05,
+    "clayThreshold": 0.05,
+    "treeDensity": 3,
   }
 ]

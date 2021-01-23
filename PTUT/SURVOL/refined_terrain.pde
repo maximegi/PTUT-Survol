@@ -1,18 +1,18 @@
 class RefinedTerrain{
     boolean isWaterActive = true;
 
-    float m_waterThreshold; // -0.2 par défaut
-    float m_sandThreshold; //0.05 par défaut
-    float m_clayThreshold; // 0.05 par défaut
+    float m_waterThreshold = -0.2;
+    float m_sandThreshold = 0.05;
+    float m_clayThreshold = 0.05;
 
     boolean changingWater = false;
 
-    int m_treeDensity;
+    int m_treeDensity = 3;
 
     ArrayList<PShape> trees = new ArrayList<PShape>();
 
 
-    RefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, int treeDensity){
+    void initRefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, int treeDensity){
       this.m_waterThreshold = waterThreshold;
       this.m_sandThreshold = sandThreshold;
       this.m_clayThreshold = clayThreshold;
