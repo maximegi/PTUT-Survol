@@ -39,6 +39,10 @@ color clayTmp = color(0,0,0);
 
 color sand = color(229,217,194);
 color sandTmp = color(0,0,0);
-
-color water = color(45,127,150);;
+/*
+color water = color(45,127,150);
+color waterTmp = color(0,0,0);
+*/
+//color water = color(1,169,193);
+color water = color(1,50,57);
 color waterTmp = color(0,0,0);

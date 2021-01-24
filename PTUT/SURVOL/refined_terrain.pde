@@ -22,16 +22,22 @@ class RefinedTerrain{
     color getFillColor(float altitude, float perlinTextureValue){
       if(this.isWaterActive){
         if(altitude <= this.m_waterThreshold){
-          waterTmp = color( red(water), green(water) , map(altitude, -1, this.m_waterThreshold, 1.5, 0.9) * blue(water));
+          waterTmp = color(red(water), map(altitude, -1, this.m_waterThreshold, 0.5, 3)*green(water) , map(altitude, -1, this.m_waterThreshold, 0.5, 3) * blue(water));
+          //waterTmp = color( red(water), green(water) , map(altitude, -1, this.m_waterThreshold, 0.9, 1.5) * blue(water));
+          //return waterTmp;
+		      //waterTmp = color(min(180,120-altitude*1.5),90,max(110,min(110,-40*altitude)+50+altitude));
           return waterTmp;
         }
         else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold)){
+          waterTmp = color(red(water), 3*green(water) , 3* blue(water));
           sandTmp = sand;
+          sandTmp = lerpColor(waterTmp, sandTmp, map(altitude, this.m_waterThreshold, this.m_waterThreshold + this.m_sandThreshold, 0,1));
           return sandTmp;
         }
 
         else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold)){
           clayTmp = color( red(clay), green(clay) * map(altitude, this.m_waterThreshold + this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 1, 1.12) , blue(clay));
+          clayTmp = lerpColor(sandTmp, clayTmp, map(altitude, this.m_waterThreshold+ this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0,1));
           return clayTmp;
         }
       }
