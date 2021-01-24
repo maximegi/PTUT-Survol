@@ -12,6 +12,7 @@ int sizeNoise = 40;
 float waterThreshold = 0.0;
 float sandThreshold = 0.0;
 float clayThreshold = 0.0;
+float grassThreshold = 0.0;
 int treeDensity = 0;
 
 MovingArea mesh = new MovingArea(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);

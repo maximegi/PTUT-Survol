@@ -22,6 +22,7 @@ void initValues(){
   waterThreshold = settings.getFloat("waterThreshold");
   sandThreshold = settings.getFloat("sandThreshold");
   clayThreshold = settings.getFloat("clayThreshold");
+  grassThreshold = settings.getFloat("grassThreshold");
   treeDensity = settings.getInt("treeDensity");
 }
 
@@ -46,6 +47,7 @@ void exportValues(){
   json.setFloat("waterThreshold",texturedTerrain.m_waterThreshold);
   json.setFloat("sandThreshold",texturedTerrain.m_sandThreshold);
   json.setFloat("clayThreshold",texturedTerrain.m_clayThreshold);
+  json.setFloat("grassThreshold",texturedTerrain.m_grassThreshold);
   json.setInt("treeDensity",texturedTerrain.m_treeDensity);
   valuesExported.setJSONObject(0,json);
   saveJSONArray(valuesExported, "data/savedConfig.json");

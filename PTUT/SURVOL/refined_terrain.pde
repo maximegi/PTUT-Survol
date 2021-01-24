@@ -4,6 +4,7 @@ class RefinedTerrain{
     float m_waterThreshold = -0.2;
     float m_sandThreshold = 0.05;
     float m_clayThreshold = 0.05;
+    float m_grassThreshold = 0.1;
 
     boolean changingWater = false;
 
@@ -12,10 +13,11 @@ class RefinedTerrain{
     ArrayList<PShape> trees = new ArrayList<PShape>();
 
 
-    void initRefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, int treeDensity){
+    void initRefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, float grassThreshold, int treeDensity){
       this.m_waterThreshold = waterThreshold;
       this.m_sandThreshold = sandThreshold;
       this.m_clayThreshold = clayThreshold;
+      this.m_grassThreshold = grassThreshold;
       this.m_treeDensity = treeDensity;
     }
 
@@ -36,18 +38,33 @@ class RefinedTerrain{
         }
 
         else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold)){
+          sandTmp = sand;
+          sandTmp = lerpColor(waterTmp, sandTmp, map(altitude, this.m_waterThreshold, this.m_waterThreshold + this.m_sandThreshold, 0,1));
           clayTmp = color( red(clay), green(clay) * map(altitude, this.m_waterThreshold + this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 1, 1.12) , blue(clay));
           clayTmp = lerpColor(sandTmp, clayTmp, map(altitude, this.m_waterThreshold+ this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0,1));
           return clayTmp;
         }
       }
-      if(altitude<=0.4){
+      if(altitude<=m_grassThreshold){
+        sandTmp = sand;
+        clayTmp = clay;
+        if(this.isWaterActive){
+          sandTmp = lerpColor(waterTmp, sandTmp, map(altitude, this.m_waterThreshold, this.m_waterThreshold + this.m_sandThreshold, 0,1));
+          clayTmp = color( red(clay), green(clay) * map(altitude, this.m_waterThreshold + this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 1, 1.12) , blue(clay));
+          clayTmp = lerpColor(sandTmp, clayTmp, map(altitude, this.m_waterThreshold+ this.m_sandThreshold, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0,1));
+        }
+        grassTmp = color( red(grass) * perlinTextureValue, green(grass) * map(altitude, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0.4, 1, 0.8), blue(grass));
+        grassTmp = lerpColor(clayTmp, grassTmp, map(altitude, this.m_waterThreshold+ this.m_sandThreshold + this.m_clayThreshold, m_grassThreshold, 0,1));
+        return grassTmp;
+      }
+
+      else if(altitude<=0.4){
         grassTmp = color( red(grass) * perlinTextureValue, green(grass) * map(altitude, this.m_waterThreshold + this.m_sandThreshold + this.m_clayThreshold, 0.4, 1, 0.8), blue(grass));
         return grassTmp;
       }
 
       else if(altitude <=0.6){
-        grassTmp = color( red(grass) * perlinTextureValue, green(grass) * altitude, blue(grass) * altitude);
+        grassTmp = color( red(grass) *(1- perlinTextureValue)  , green(grass) * altitude, blue(grass) * altitude);
         return grassTmp;
       }
 
@@ -84,6 +101,18 @@ class RefinedTerrain{
         }
         if(key == 'c'){
           this.m_waterThreshold += 0.05;
+        }
+        if(key == 'v' && this.m_clayThreshold!= 0.05){
+          this.m_clayThreshold -= 0.05;
+        }
+        if(key == 'b'){
+          this.m_clayThreshold += 0.05;
+        }
+        if(key == 'n' && this.m_grassThreshold!= 0.05){
+          this.m_grassThreshold -= 0.05;
+        }
+        if(key == ','){
+          this.m_grassThreshold += 0.05;
         }
         keyPressed = false;
       }

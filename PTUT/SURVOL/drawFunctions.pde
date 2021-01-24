@@ -100,7 +100,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
 
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
-  //ambientLight(30, 30, 30);
+  //ambientLight(200, 200, 200);
   scale(2);
   translate(-cols/2,rows/3);
   //we're working with a half cylinder
