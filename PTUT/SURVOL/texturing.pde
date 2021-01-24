@@ -1,14 +1,14 @@
-color grass = color(63,101,29);
-color grassTmp = color(0,0,0);
-
-color clay = color(158,127,79);
-color clayTmp = color(0,0,0);
-
-color sand = color(229,217,194);
-color sandTmp = color(0,0,0);
-
-color water = color(45,127,150);;
-color waterTmp = color(0,0,0);
+// color grass = color(63,101,29);
+// color grassTmp = color(0,0,0);
+//
+// color clay = color(158,127,79);
+// color clayTmp = color(0,0,0);
+//
+// color sand = color(229,217,194);
+// color sandTmp = color(0,0,0);
+//
+// color water = color(45,127,150);;
+// color waterTmp = color(0,0,0);
 
 color getBiome(float altitude, float m, boolean isWaterActive){
   //altitude = map(altitude, -20.0, 20, -1, 1);

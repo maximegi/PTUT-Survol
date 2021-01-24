@@ -1,34 +1,66 @@
 void setup()
 {
   size(1080, 720, P3D);
-  //cam = new PeasyCam(this, 200);
+  initValues();
   cols = w / scl;
   rows = h / scl;
-  terrainTexture = new float[cols][rows];
+
+  background(100,100,100);
+  texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);
+  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+  //println(customCamera.cameraWidth);
+
+  texturedTerrain.addTreeToList("assets/lowpolytree.obj");
 }
 
 float perlin(float posX, float posY)
 {
-  return map(noise(posX, posY), 0, 1, -1, 1);
+  float noise = 1 * noise(1 * posX, 1 * posY) +  0.5 * noise(2 * posX, 2 * posY) + 0.25 * noise(4 * posX, 4 * posY);
+  return map(noise, 0, 1.75, -1, 1);
 }
+
+float perlinTexture(float posX, float posY)
+{
+  float m = 1 * noise(3 * posX, 3 * posY) +  0.5 * noise(2 * posX, 2 * posY) + 0.25 * noise(4 * posX, 4 * posY);
+  m = pow(m, 1.42);
+  //return map(m, 0, pow(1.75, 1.42), 0, 1);
+  return m;
+}
+
+float perlinTrees(float posX, float posY)
+{
+  float nX = posX/cols -0.5;
+  float nY = posY/rows -0.5;
+
+  return map(noise(15*posX, 15*posY),0,1, 0, 200);
+}
+/*
+float isTree(float posX, float posY, int density, float pas){
+  float max = 0;
+  for(int xn = currentCol - density; xn <= currentCol + density; xn++){
+    for(int yn = currentRow - density; yn <= currentRow + density; yn++){
+      float xtmp = xn*pas +posX;
+      float ytmp = yn*pas + posY;
+      if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
+        float e = perlinTrees(xtmp, ytmp);
+        if (e > max) { max = e; }
+      }
+    }
+  }
+  return max;
+}*/
+
 
 void draw()
 {
+  texturedTerrain.update();
+  customCamera.useCam();
+  customCamera.update();
   mesh.move();
+   //drawAxes();
 
-  float xoff = 0;
-  for (int x = 0; x < cols; x++){
-    float yoff = 0;
-    for (int y = 0; y < rows; y++)
-    {
-      //Deuxième bruit de perlin permettant de faire des variations de texturing sur le sol
-      float m = 1 * noise(3 * xoff, 3 * yoff) +  0.5 * noise(2 * xoff, 2 * yoff) + 0.25 * noise(4 * xoff, 4 * yoff);
-      terrainTexture[x][y] = pow(m, 1.42);
-      yoff += pasPerlin;
-    }
-    xoff += pasPerlin;
-  }
-  //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh);
-  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh);
+
+  //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
 }

@@ -1,0 +1,24 @@
+[
+  {
+    "scl": 25,
+    "w": 5000,
+    "h": 5000,
+    "pasPerlin": 0.01,
+    "sizeNoise": 20,
+    "cameraWidth": 800,
+    "cameraHeight": 800,
+    "eyeX": 0,
+    "eyeY": 0,
+    "centerX": 0,
+    "centerY": 0,
+    "centerZ": 0,
+    "upX": 0,
+    "upY": 1,
+    "upZ": 0,
+    "waterThreshold": -0.2,
+    "sandThreshold": 0.05,
+    "clayThreshold": 0.05,
+    "grassThreshold": 0.1,
+    "treeDensity": 3,
+  }
+]

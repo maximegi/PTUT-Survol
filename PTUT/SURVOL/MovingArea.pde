@@ -5,7 +5,7 @@ class MovingArea
   int h;
 
   float deltaPos = .01;
-  float deltaAngle = .01;
+  float deltaAngle = .02;
 
   PVector position = new PVector(0., 0.);
   PVector direction = new PVector(1., 0.);
@@ -65,15 +65,6 @@ class MovingArea
 
 boolean NORTH, SOUTH, WEST, EAST, SHIFTPRESSED;
 
-void keyPressed()
-{
-  final int k = keyCode;
-  if (k == UP) NORTH = true;
-  else if (k == DOWN) SOUTH = true;
-  else if (k == LEFT) WEST  = true;
-  else if (k == RIGHT) EAST  = true;
-  else if (k == SHIFT) SHIFTPRESSED = true;
-}
 
 void keyReleased()
 {
@@ -84,4 +75,17 @@ void keyReleased()
   else if (k == LEFT) WEST  = false;
   else if (k == RIGHT) EAST  = false;
   else if (k == SHIFT) SHIFTPRESSED = false;
+}
+
+void keyPressed()
+{
+  final int k = keyCode;
+  if (k == UP) NORTH = true;
+  else if (k == DOWN) SOUTH = true;
+  else if (k == LEFT) WEST  = true;
+  else if (k == RIGHT) EAST  = true;
+  else if (k == SHIFT) SHIFTPRESSED = true;
+  if (key == 'p' || key == 'P'){
+    exportValues();
+  }
 }
