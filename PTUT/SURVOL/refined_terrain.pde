@@ -5,6 +5,8 @@ class RefinedTerrain{
     float m_sandThreshold = 0.05;
     float m_clayThreshold = 0.05;
 
+    int m_actualTree = 0;
+
     boolean changingWater = false;
 
     int m_treeDensity = 3;
@@ -54,7 +56,7 @@ class RefinedTerrain{
         translate(x, y-2, z);
         rotateX(PI);
         scale(1.5);
-        shape(this.trees.get(0));
+        shape(this.trees.get(this.m_actualTree));
         popMatrix();
       }
     }
@@ -78,6 +80,14 @@ class RefinedTerrain{
         }
         if(key == 'c'){
           this.m_waterThreshold += 0.05;
+        }
+        if (key == '_' || key == '8'){//number 8 (above the I)
+          if(this.m_actualTree != trees.size() - 1)    {this.m_actualTree++;}
+          else {this.m_actualTree = 0;}
+        }
+        if (key == 'ç' || key == '9'){//number 9 (above the O)
+          if(this.m_actualTree != 0){this.m_actualTree--;}
+          else {this.m_actualTree =trees.size()-1;}
         }
         keyPressed = false;
       }
