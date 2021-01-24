@@ -8,9 +8,11 @@ void setup()
   background(100,100,100);
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, 1);
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-  //println(customCamera.cameraWidth);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
+  texturedTerrain.addTreeToList("assets/snowTree.obj");
+  texturedTerrain.addTreeToList("assets/regularTree.obj");
+  texturedTerrain.addTreeToList("assets/regularTree2.obj");
 }
 
 float perlin(float posX, float posY)

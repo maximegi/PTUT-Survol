@@ -1,6 +1,8 @@
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
 
+
+
 int cols, rows;
 int scl = 40;
 int w = 5000;

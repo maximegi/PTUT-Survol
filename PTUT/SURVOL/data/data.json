@@ -19,5 +19,6 @@
     "sandThreshold": 0.05,
     "clayThreshold": 0.05,
     "treeDensity": 3,
+    "actualTree": 0,
   }
 ]
