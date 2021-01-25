@@ -20,5 +20,6 @@
     "clayThreshold": 0.1,
     "grassThreshold": 0.1,
     "treeDensity": 3,
+    "actualTree": 0,
   }
 ]

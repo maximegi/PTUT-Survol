@@ -1,6 +1,8 @@
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
 
+
+
 int cols, rows;
 int scl = 40;
 int w = 5000;
@@ -49,3 +51,4 @@ color water = color(1,50,57);
 color waterTmp = color(0,0,0);
 
 PImage img;
+boolean normal = false;

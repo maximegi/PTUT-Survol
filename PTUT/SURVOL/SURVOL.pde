@@ -11,6 +11,9 @@ void setup()
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
+  texturedTerrain.addTreeToList("assets/snowTree.obj");
+  texturedTerrain.addTreeToList("assets/regularTree.obj");
+  texturedTerrain.addTreeToList("assets/regularTree2.obj");
 }
 
 float perlin(float posX, float posY)
