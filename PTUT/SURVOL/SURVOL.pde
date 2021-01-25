@@ -4,11 +4,11 @@ void setup()
   initValues();
   cols = w / scl;
   rows = h / scl;
+  img = loadImage("assets/sea.jpg");
 
   background(100,100,100);
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-  //println(customCamera.cameraWidth);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
 }
@@ -34,22 +34,6 @@ float perlinTrees(float posX, float posY)
 
   return map(noise(15*posX, 15*posY),0,1, 0, 200);
 }
-/*
-float isTree(float posX, float posY, int density, float pas){
-  float max = 0;
-  for(int xn = currentCol - density; xn <= currentCol + density; xn++){
-    for(int yn = currentRow - density; yn <= currentRow + density; yn++){
-      float xtmp = xn*pas +posX;
-      float ytmp = yn*pas + posY;
-      if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
-        float e = perlinTrees(xtmp, ytmp);
-        if (e > max) { max = e; }
-      }
-    }
-  }
-  return max;
-}*/
-
 
 void draw()
 {

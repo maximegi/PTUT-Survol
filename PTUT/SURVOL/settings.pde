@@ -47,3 +47,5 @@ color waterTmp = color(0,0,0);
 //color water = color(1,169,193);
 color water = color(1,50,57);
 color waterTmp = color(0,0,0);
+
+PImage img;
