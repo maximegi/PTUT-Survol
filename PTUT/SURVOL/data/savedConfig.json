@@ -1,0 +1,22 @@
+[{
+  "pasPerlin": 0.009999999776482582,
+  "centerY": 0,
+  "centerZ": 0,
+  "centerX": 0,
+  "clayThreshold": 0.15000000596046448,
+  "cameraWidth": 800,
+  "eyeY": 0,
+  "grassThreshold": 0.25,
+  "h": 5000,
+  "eyeX": 0,
+  "sizeNoise": 20,
+  "cameraHeight": 800,
+  "sandThreshold": 0.05000000074505806,
+  "waterThreshold": -0.10000000894069672,
+  "w": 5000,
+  "treeDensity": 1,
+  "upX": 0,
+  "scl": 25,
+  "upZ": 0,
+  "upY": 1
+}]

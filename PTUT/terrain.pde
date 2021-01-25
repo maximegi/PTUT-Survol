@@ -60,6 +60,8 @@ void keyPressed()
   else if (k == LEFT) WEST  = true;
   else if (k == RIGHT) EAST  = true;
   else if (k == SHIFT) SHIFTPRESSED = true;
+  if (key == 'p' || key == 'P'){
+    exportValues();}
 }
 
 void keyReleased()
