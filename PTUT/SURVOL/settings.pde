@@ -44,3 +44,6 @@ color sandTmp = color(0,0,0);
 
 color water = color(45,127,150);;
 color waterTmp = color(0,0,0);
+
+
+boolean normal = false;

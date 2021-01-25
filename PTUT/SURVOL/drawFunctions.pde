@@ -138,7 +138,12 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
 
         float value = perlinTrees(xperlinc, yperlinc);
         if ((int)(value/10) %11 == 0) {
-            texturedTerrain.placeTrees(biome, yp, -zp, x);
+            if (normal){
+              texturedTerrain.placeTrees(biome, yp, -zp, x,radians(i*angle+cols/2));
+            }
+            else {
+                texturedTerrain.placeTrees(biome, yp, -zp, x,PI);
+            }
         }
         /*
         double max = 0;

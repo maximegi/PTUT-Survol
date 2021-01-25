@@ -50,11 +50,11 @@ class RefinedTerrain{
       else {return grass;}
     }
 
-    void placeTrees(color currentColor, float x, float y, float z){
+    void placeTrees(color currentColor, float x, float y, float z,float angle){
       if(currentColor != waterTmp && currentColor != sandTmp){
         pushMatrix();
         translate(x, y-2, z);
-        rotateX(PI);
+        rotateX(angle);
         scale(1.5);
         shape(this.trees.get(this.m_actualTree));
         popMatrix();
@@ -88,6 +88,10 @@ class RefinedTerrain{
         if (key == 'ç' || key == '9'){//number 9 (above the O)
           if(this.m_actualTree != 0){this.m_actualTree--;}
           else {this.m_actualTree =trees.size()-1;}
+        }
+        if (key == '*' || key == 'µ'){//number 9 (above the O)
+          if(normal){normal =false;}
+          else{normal = true;}
         }
         keyPressed = false;
       }
