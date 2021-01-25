@@ -45,6 +45,10 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         // fill terrain with the appropriate color
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
         fill(biome);
+        float value = perlinTrees(xperlinc, yperlinc);
+        if ((int)(value/10) %11 == 0) {
+            texturedTerrain.placeTrees(biome, yp, -zp, x);
+        }
         /*
         double max = 0;
         for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
@@ -138,7 +142,12 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
 
         float value = perlinTrees(xperlinc, yperlinc);
         if ((int)(value/10) %11 == 0) {
+          if (normal){
+            texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle));
+          }
+          else {
             texturedTerrain.placeTrees(biome, yp, -zp, x);
+          }
         }
         /*
         double max = 0;

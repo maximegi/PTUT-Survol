@@ -6,6 +6,8 @@ class RefinedTerrain{
     float m_clayThreshold = 0.05;
     float m_grassThreshold = 0.1;
 
+    int m_actualTree = 0;
+
     boolean changingWater = false;
 
     int m_treeDensity = 3;
@@ -13,11 +15,10 @@ class RefinedTerrain{
     ArrayList<PShape> trees = new ArrayList<PShape>();
 
 
-    void initRefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, float grassThreshold, int treeDensity){
+    void initRefinedTerrain(float waterThreshold, float sandThreshold, float clayThreshold, int treeDensity){
       this.m_waterThreshold = waterThreshold;
       this.m_sandThreshold = sandThreshold;
       this.m_clayThreshold = clayThreshold;
-      this.m_grassThreshold = grassThreshold;
       this.m_treeDensity = treeDensity;
     }
 
@@ -27,7 +28,7 @@ class RefinedTerrain{
           waterTmp = color(red(water), map(altitude, -1, this.m_waterThreshold, 0.5, 3)*green(water) , map(altitude, -1, this.m_waterThreshold, 0.5, 3) * blue(water));
           //waterTmp = color( red(water), green(water) , map(altitude, -1, this.m_waterThreshold, 0.9, 1.5) * blue(water));
           //return waterTmp;
-		      //waterTmp = color(min(180,120-altitude*1.5),90,max(110,min(110,-40*altitude)+50+altitude));
+          //waterTmp = color(min(180,120-altitude*1.5),90,max(110,min(110,-40*altitude)+50+altitude));
           return waterTmp;
         }
         else if(altitude <= (this.m_waterThreshold + this.m_sandThreshold)){
@@ -71,13 +72,23 @@ class RefinedTerrain{
       else {return grass;}
     }
 
+    void placeTrees(color currentColor, float x, float y, float z,float angle){
+      if(currentColor != waterTmp && currentColor != sandTmp){
+        pushMatrix();
+        translate(x, y-2, z);
+        rotateX(angle + PI);
+        scale(1.5);
+        shape(this.trees.get(this.m_actualTree));
+        popMatrix();
+      }
+    }
     void placeTrees(color currentColor, float x, float y, float z){
       if(currentColor != waterTmp && currentColor != sandTmp){
         pushMatrix();
         translate(x, y-2, z);
         rotateX(PI);
         scale(1.5);
-        shape(this.trees.get(0));
+        shape(this.trees.get(this.m_actualTree));
         popMatrix();
       }
     }
@@ -102,17 +113,17 @@ class RefinedTerrain{
         if(key == 'c'){
           this.m_waterThreshold += 0.05;
         }
-        if(key == 'v' && this.m_clayThreshold!= 0.05){
-          this.m_clayThreshold -= 0.05;
+        if (key == '_' || key == '8'){//number 8 (above the I)
+          if(this.m_actualTree != trees.size() - 1)    {this.m_actualTree++;}
+          else {this.m_actualTree = 0;}
         }
-        if(key == 'b'){
-          this.m_clayThreshold += 0.05;
+        if (key == 'ç' || key == '9'){//number 9 (above the O)
+          if(this.m_actualTree != 0){this.m_actualTree--;}
+          else {this.m_actualTree =trees.size()-1;}
         }
-        if(key == 'n' && this.m_grassThreshold!= 0.05){
-          this.m_grassThreshold -= 0.05;
-        }
-        if(key == ','){
-          this.m_grassThreshold += 0.05;
+        if (key == '*' || key == 'µ'){//number 9 (above the O)
+          if(normal){normal =false;}
+          else{normal = true;}
         }
         keyPressed = false;
       }

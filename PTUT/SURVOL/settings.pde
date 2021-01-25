@@ -1,3 +1,6 @@
+import peasy.*;
+PeasyCam cam;
+
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
 
@@ -47,3 +50,5 @@ color waterTmp = color(0,0,0);
 //color water = color(1,169,193);
 color water = color(1,50,57);
 color waterTmp = color(0,0,0);
+
+boolean normal = false;

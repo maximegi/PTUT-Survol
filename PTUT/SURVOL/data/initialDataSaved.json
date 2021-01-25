@@ -18,7 +18,6 @@
     "waterThreshold": -0.2,
     "sandThreshold": 0.05,
     "clayThreshold": 0.05,
-    "grassThreshold": 0.1,
     "treeDensity": 3,
   }
 ]

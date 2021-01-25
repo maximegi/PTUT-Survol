@@ -1,6 +1,6 @@
 [
   {
-    "scl": 25,
+    "scl": 20,
     "w": 5000,
     "h": 5000,
     "pasPerlin": 0.01,
@@ -18,7 +18,7 @@
     "waterThreshold": -0.2,
     "sandThreshold": 0.05,
     "clayThreshold": 0.05,
-    "grassThreshold": 0.1,
     "treeDensity": 3,
+    "actualTree": 0,
   }
 ]
