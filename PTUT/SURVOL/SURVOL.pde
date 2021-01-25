@@ -2,6 +2,7 @@ void setup()
 {
   size(1080, 720, P3D);
   initValues();
+  cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
   img = loadImage("assets/sea.jpg");
