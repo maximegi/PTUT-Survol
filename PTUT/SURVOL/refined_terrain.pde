@@ -115,7 +115,7 @@ class RefinedTerrain{
       if(currentColor != waterTmp && currentColor != sandTmp){
         pushMatrix();
         translate(x, y-2, z);
-        rotateX(angle);
+        rotateX(angle + PI);
         scale(1.5);
         shape(this.trees.get(this.m_actualTree));
         popMatrix();
