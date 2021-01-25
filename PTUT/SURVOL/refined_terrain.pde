@@ -60,6 +60,16 @@ class RefinedTerrain{
         popMatrix();
       }
     }
+    void placeTrees(color currentColor, float x, float y, float z){
+      if(currentColor != waterTmp && currentColor != sandTmp){
+        pushMatrix();
+        translate(x, y-2, z);
+        rotateX(PI);
+        scale(1.5);
+        shape(this.trees.get(this.m_actualTree));
+        popMatrix();
+      }
+    }
 
     void changeWaterStatus(){
       if(this.isWaterActive){this.isWaterActive = false;}

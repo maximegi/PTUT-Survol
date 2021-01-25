@@ -142,7 +142,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
               texturedTerrain.placeTrees(biome, yp, -zp, x,radians(i*angle+cols/2));
             }
             else {
-                texturedTerrain.placeTrees(biome, yp, -zp, x,PI);
+                texturedTerrain.placeTrees(biome, yp, -zp, x);
             }
         }
         /*
