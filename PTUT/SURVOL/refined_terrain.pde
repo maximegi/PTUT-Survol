@@ -182,6 +182,12 @@ class RefinedTerrain{
           if(normal){normal =false;}
           else{normal = true;}
         }
+        if (key == 'u' || key == 'U'){
+          pasPerlin += 0.005;
+        }
+        if (key == 'j' || key == 'J'){
+          pasPerlin -= 0.005;
+        }
         keyPressed = false;
       }
 
