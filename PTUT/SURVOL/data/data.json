@@ -1,10 +1,10 @@
 [
   {
-    "scl": 20,
+    "scl": 30,
     "w": 5000,
     "h": 5000,
     "pasPerlin": 0.01,
-    "sizeNoise": 50,
+    "sizeNoise": 20,
     "cameraWidth": 800,
     "cameraHeight": 800,
     "eyeX": 0,

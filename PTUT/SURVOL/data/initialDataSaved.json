@@ -1,10 +1,10 @@
 [
   {
-    "scl": 20,
+    "scl": 30,
     "w": 5000,
     "h": 5000,
     "pasPerlin": 0.01,
-    "sizeNoise": 40,
+    "sizeNoise": 20,
     "cameraWidth": 800,
     "cameraHeight": 800,
     "eyeX": 0,
@@ -16,9 +16,12 @@
     "upY": 1,
     "upZ": 0,
     "waterThreshold": -0.2,
-    "sandThreshold": 0.05,
-    "clayThreshold": 0.05,
+    "sandThreshold": 0.1,
+    "clayThreshold": 0.1,
     "grassThreshold": 0.1,
     "treeDensity": 3,
+    "actualTree": 0,
+    "deltaPos": .01,
+    "deltaAngle": .02;
   }
 ]
