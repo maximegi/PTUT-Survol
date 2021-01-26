@@ -1,6 +1,9 @@
 void setup()
 {
   size(1080, 720, P3D);
+  sky = createGraphics(width,height);
+  createBg();
+
   initValues();
   //cam = new PeasyCam(this, 200);
   cols = w / scl;
@@ -47,8 +50,22 @@ void draw()
   mesh.move();
    //drawAxes();
 
-
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
   mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
+}
+
+void createBg(){
+  sky.beginDraw();
+  sky.noStroke();
+  sky.rect(0,0, width,3*height/4);
+
+  for (y = 0; y < 3*height/4; y += step) {
+    for (x = 0; x < width; x += step) {
+      n = noise(x/200., y/50.);
+      sky.fill(9, 177, 236, n*map(y, 0, 3*height/4, 255, 0));
+      sky.rect(x,y, step,step);
+    }
+  }
+  sky.endDraw();
 }

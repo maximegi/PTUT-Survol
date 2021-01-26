@@ -1,8 +1,12 @@
 import peasy.*;
 PeasyCam cam;
 
+PGraphics sky;
+
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
+
+float t=0.0, x, y, n,step=3;
 
 int cols, rows;
 int scl = 40;

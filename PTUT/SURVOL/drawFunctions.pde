@@ -49,37 +49,6 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         if ((int)(value/10) %11 == 0) {
             texturedTerrain.placeTrees(biome, yp, -zp, x);
         }
-        /*
-        double max = 0;
-        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
-          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
-            float xtmp = xn*pasPerlin + m_terrain.getX();
-            float ytmp = yn*pasPerlin + m_terrain.getY();
-            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
-              double e = perlinTrees(xtmp, ytmp);
-              if (e > max) { max = e; }
-
-            }
-          }
-        }
-        if (perlinTrees(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin) == max) {
-          //texturedTerrain.placeTrees(biome, yp, -zp, x);
-        }
-*/
-        /*
-        double max = 0;
-
-        for(int xn = i - m_refinedTerrain.m_treeDensity; xn <= i + m_refinedTerrain.m_treeDensity; xn++){
-          for(int yn = j - m_refinedTerrain.m_treeDensity; yn <= j + m_refinedTerrain.m_treeDensity; yn++){
-            if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
-              double e = perlinTrees(xn, yn);
-              if (e > max) { max = e; }
-            }
-          }
-        }
-        if (perlinTrees(i, j) == max) {
-          texturedTerrain.placeTrees(biome, yp, -zp, x);
-        }*/
 
         vertex( yp, -zp, x);
         vertex( yf,  -zf, x);
@@ -90,7 +59,10 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
 
 void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, MovingArea m_terrain, RefinedTerrain m_refinedTerrain){
   //translate(width/4,height/2);
-  background(100,100,100);
+  //background(100,100,100);
+  background(sky);
+
+
   stroke(255, 0, 0);
   line(-1000, 0, 0, 1000, 0, 0);
   //y axis
@@ -162,8 +134,20 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         }*/
 
         // Triangle A
+
+        color biome = m_refinedTerrain.getFillColor(perlin((xperlinc+xperlinf)/2, (yperlinc+yperlinf)/2), perlinTexture((xperlinc+xperlinf)/2, (yperlinc+yperlinf)/2));
+        float value = (perlinTrees(xperlinc, yperlinc) + perlinTrees(xperlinf, yperlinf))/2;
+        if ((int)(value/10) %11 == 0) {
+            if (normal){
+              texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle));
+            }
+            else {
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2);
+            }
+        }
+        /*
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
-        float value = perlinTrees(xperlinc, yperlinc);
+        float value = perlinTrees(xperlinc, yperlinc) ;
         if ((int)(value/10) %11 == 0) {
             if (normal){
               texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle));
@@ -171,7 +155,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
             else {
                 texturedTerrain.placeTrees(biome, yp, -zp, x);
             }
-        }
+        }*/
         fill(biome);
         /*
         if(biome == waterTmp || biome == sandTmp){
