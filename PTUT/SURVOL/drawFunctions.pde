@@ -45,6 +45,11 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         // fill terrain with the appropriate color
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
         fill(biome);
+
+        //flat sea
+        if(zp <= sizeNoise * m_refinedTerrain.m_waterThreshold){ zp = sizeNoise * m_refinedTerrain.m_waterThreshold;}
+        if(zf <= sizeNoise * m_refinedTerrain.m_waterThreshold){ zf = sizeNoise * m_refinedTerrain.m_waterThreshold;}
+
         float value = perlinTrees(xperlinc, yperlinc);
         if ((int)(value/10) %11 == 0) {
             texturedTerrain.placeTrees(biome, yp, -zp, x);
@@ -138,6 +143,15 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         // fill terrain with the appropriate color
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
         fill(biome);
+
+        //flat sea
+        if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
+          zp = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        }
+        if(zf <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
+          zf = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        }
+
         // add trees
 
         float value = perlinTrees(xperlinc, yperlinc);

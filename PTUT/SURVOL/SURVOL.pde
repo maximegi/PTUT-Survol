@@ -1,14 +1,13 @@
 void setup()
 {
   size(1080, 720, P3D);
-  cam = new PeasyCam(this, 200);
   initValues();
   cols = w / scl;
   rows = h / scl;
 
   background(100,100,100);
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, 1);
-  // customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
   texturedTerrain.addTreeToList("assets/snowTree.obj");
@@ -57,8 +56,8 @@ float isTree(float posX, float posY, int density, float pas){
 void draw()
 {
   texturedTerrain.update();
-  // customCamera.useCam();
-  // customCamera.update();
+  customCamera.useCam();
+  customCamera.update();
   mesh.move();
    //drawAxes();
 
