@@ -42,12 +42,16 @@ void drawPlanar(int cols, int rows, int sizeNoise, float pasPerlin, MovingArea m
         //z future
         float zf = perlin(xperlinf, yperlinf) * sizeNoise;
 
+        //flat sea
+        if(zp <= sizeNoise * m_refinedTerrain.m_waterThreshold){ zp = sizeNoise * m_refinedTerrain.m_waterThreshold;}
+        if(zf <= sizeNoise * m_refinedTerrain.m_waterThreshold){ zf = sizeNoise * m_refinedTerrain.m_waterThreshold;}
+
         // fill terrain with the appropriate color
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(m_terrain.getX() +i*pasPerlin, m_terrain.getY() + j*pasPerlin));
         fill(biome);
         float value = perlinTrees(xperlinc, yperlinc);
         if ((int)(value/10) %11 == 0) {
-            texturedTerrain.placeTrees(biome, yp, -zp, x);
+            texturedTerrain.placeTrees(biome, yp, -zp, x,texturedTerrain.m_actualTree);
         }
 
         vertex( yp, -zp, x);
@@ -62,7 +66,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   //background(100,100,100);
   background(sky);
 
-
+/*
   stroke(255, 0, 0);
   line(-1000, 0, 0, 1000, 0, 0);
   //y axis
@@ -72,7 +76,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   stroke(0, 0, 255);
   line(0, 0, -1000, 0, 0, 1000);
   stroke(255);
-  noFill();
+  noFill();*/
 
   noStroke();
   //directionalLight(102, 202, 186, 1, 1, 0);
@@ -104,83 +108,51 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         float xperlinf = m_terrain.getX() + (((i - cols/2) * pasPerlin * mesh.getDirX()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoX()));
         float yperlinf = m_terrain.getY() + (((i - cols/2) * pasPerlin * mesh.getDirY()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoY()));
 
-        //float xperlinf2 = m_terrain.getX() + (((i+1 - cols/2) * pasPerlin * mesh.getDirX()) + ((j - rows/2) * pasPerlin * mesh.getOrthoX()));
-        //float yperlinf2 = m_terrain.getY() + (((i+1 - cols/2) * pasPerlin * mesh.getDirY()) + ((j - rows/2) * pasPerlin * mesh.getOrthoY()));
-
-        //float xperlinf3 = m_terrain.getX() + (((i+1 - cols/2) * pasPerlin * mesh.getDirX()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoX()));
-        //float yperlinf3 = m_terrain.getY() + (((i+1 - cols/2) * pasPerlin * mesh.getDirY()) + ((j+1 - rows/2) * pasPerlin * mesh.getOrthoY()));
-
         // current vertice's height
         float currentHeight = perlin(xperlinc, yperlinc);
-        //float currentHeight2 = perlin(xperlinf3, yperlinf3);
 
         //z past
         float zp = sin( radians( i * angle ) ) * r + currentHeight * sizeNoise;
         //z future
         float zf = sin( radians( i * angle ) ) * r + perlin(xperlinf, yperlinf) * sizeNoise;
 
-        //float zf2 = sin( radians((i+1) * angle ) ) * r + perlin(xperlinf2, yperlinf2) * sizeNoise;
 
-        //float zf3 = sin( radians((i+1) * angle ) ) * r + perlin(xperlinf3, yperlinf3) * sizeNoise;
-
-        // fill terrain with the appropriate color
-        //color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
-
-        // add trees
-        /*
-        float value2 = perlinTrees(xperlinf3, yperlinf3);
-        if ((int)(value2/10) %11 == 0) {
-            texturedTerrain.placeTrees(biome2, yf, -zf3, xf);
-        }*/
-
-        // Triangle A
-
-        color biome = m_refinedTerrain.getFillColor(perlin((xperlinc+xperlinf)/2, (yperlinc+yperlinf)/2), perlinTexture((xperlinc+xperlinf)/2, (yperlinc+yperlinf)/2));
-        float value = (perlinTrees(xperlinc, yperlinc) + perlinTrees(xperlinf, yperlinf))/2;
-        if ((int)(value/10) %11 == 0) {
-            if (normal){
-              texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle));
-            }
-            else {
-                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2);
-            }
-        }
-        /*
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
-        float value = perlinTrees(xperlinc, yperlinc) ;
+
+        float value = (perlinTrees(xperlinc, yperlinc) + perlinTrees(xperlinf, yperlinf))/2;
+
         if ((int)(value/10) %11 == 0) {
             if (normal){
-              texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle));
+              texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle), texturedTerrain.m_actualTree);
             }
             else {
-                texturedTerrain.placeTrees(biome, yp, -zp, x);
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
             }
-        }*/
-        fill(biome);
-        /*
-        if(biome == waterTmp || biome == sandTmp){
-          tint(biome);
-          texture(img);
         }
-        else{
-          fill(biome);
-        }*/
+        if ((int)(value/10) %13 == 0) {
+            if (normal){
+              texturedTerrain.placeTrees(biome, yp, -zp, x,radians((i-cols/2)*angle), texturedTerrain.m_actualTree+1);
+            }
+            else {
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree+1);
+            }
+        }
 
-        vertex( yp, -zp, x, 0, 0);
-        vertex( yf,  -zf, x, 418,0);
-        /*
-        vertex( yf, -zf3, xf, 418, 418);
-        vertex( yp, -zf2, xf, 0 , 418);
+        //flat sea
+        if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
+          zp = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        }
+        if(zf <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
+          zf = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        }
 
-        // Triangle B
-        color biome2 = m_refinedTerrain.getFillColor(currentHeight2, perlinTexture(xperlinf3, yperlinf3));
+        fill(biome);
+        vertex( yp, -zp, x);
+        color biome2 = m_refinedTerrain.getFillColor(perlin(xperlinf, yperlinf), perlinTexture(xperlinf, yperlinf));
         fill(biome2);
-        vertex( yf, -zf3, xf);
         vertex( yf,  -zf, x);
-        vertex( yp, -zf2, xf);
 
 
-        endShape();*/
     }
   endShape();
   }
