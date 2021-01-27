@@ -22,6 +22,6 @@
     "treeDensity": 3,
     "actualTree": 0,
     "deltaPos": .01,
-    "deltaAngle": .02
+    "deltaAngle": .05
   }
 ]
