@@ -20,6 +20,8 @@ void setup()
   texturedTerrain.addTreeToList("assets/regularTree.obj");
   texturedTerrain.addTreeToList("assets/regularTree2.obj");
   texturedTerrain.addTreeToList("assets/leaflessTreeSnow.obj");
+  texturedTerrain.addTreeToList("assets/empty.obj");
+  texturedTerrain.addTreeToList("assets/empty.obj");
 }
 
 float perlin(float posX, float posY)

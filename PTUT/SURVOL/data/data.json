@@ -10,7 +10,7 @@
     "eyeX": 0,
     "eyeY": 0,
     "centerX": 0,
-    "centerY": -70,
+    "centerY": -75,
     "centerZ": 0,
     "upX": 0,
     "upY": 1,
@@ -21,5 +21,7 @@
     "grassThreshold": 0.1,
     "treeDensity": 3,
     "actualTree": 0,
+    "deltaPos": .01,
+    "deltaAngle": .02
   }
 ]

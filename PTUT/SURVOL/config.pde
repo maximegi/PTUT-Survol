@@ -25,6 +25,8 @@ void initValues(){
   grassThreshold = settings.getFloat("grassThreshold");
   treeDensity = settings.getInt("treeDensity");
   texturedTerrain.m_actualTree = settings.getInt("actualTree");
+  mesh.deltaPos = settings.getFloat("deltaPos");
+  mesh.deltaAngle = settings.getFloat("deltaAngle");
 }
 
 void exportValues(){
@@ -51,6 +53,8 @@ void exportValues(){
   json.setFloat("grassThreshold",texturedTerrain.m_grassThreshold);
   json.setInt("treeDensity",texturedTerrain.m_treeDensity);
   json.setInt("actualTree",texturedTerrain.m_actualTree);
+  json.setFloat("deltaPos",mesh.deltaPos);
+  json.setFloat("deltaAngle",mesh.deltaAngle);
   valuesExported.setJSONObject(0,json);
   saveJSONArray(valuesExported, "data/savedConfig.json");
 
