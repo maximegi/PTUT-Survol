@@ -53,9 +53,9 @@ void draw()
   customCamera.update();
   mesh.move();
    //drawAxes();
-
+   translate(0,300);
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
-  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  mapCylinder(cols, rows, 400, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
 }
 
