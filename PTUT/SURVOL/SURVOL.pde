@@ -12,7 +12,7 @@ void setup()
 
   background(100,100,100);
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);
-  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+  customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, paramEyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
   texturedTerrain.addTreeToList("assets/leaflessTree.obj");
@@ -53,9 +53,9 @@ void draw()
   customCamera.update();
   mesh.move();
    //drawAxes();
-
+   translate(0,-300,450);
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
-  mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  mapCylinder(cols, rows, 120, sizeNoise, pasPerlin, mesh, texturedTerrain);
 
 }
 

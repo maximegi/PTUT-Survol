@@ -29,13 +29,14 @@ float cameraWidth = 800;
 float cameraHeight = 800;
 float eyeX = 0;//cameraWidth/2;
 float eyeY = 0;//cameraHeight/2;
-float eyeZ = 0.4*(cameraHeight/2)/tan(PI/6);
+float eyeZ = 0.0;
 float centerX = 0;//cameraWidth/2;
 float centerY = 0;//cameraHeight/2;
 float centerZ = 0.0;
 float upX = 0;
 float upY = 1;
 float upZ = 0;
+float paramEyeZ = 0.0;
 
 //Texturing
 

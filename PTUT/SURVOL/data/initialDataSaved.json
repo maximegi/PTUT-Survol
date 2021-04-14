@@ -6,6 +6,7 @@
   "centerX": 0,
   "clayThreshold": 0.10000000149011612,
   "cameraWidth": 800,
+  "paramEyeZ": 0.36,
   "eyeY": 0,
   "grassThreshold": 0.10000000149011612,
   "h": 5000,
