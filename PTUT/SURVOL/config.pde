@@ -13,6 +13,7 @@ void initValues(){
   cameraHeight = settings.getInt("cameraHeight");
   eyeX = settings.getInt("eyeX");
   eyeY = settings.getInt("eyeY");
+  paramEyeZ = settings.getInt("paramEyeZ");
   centerX = settings.getInt("centerX");
   centerY = settings.getInt("centerY");
   centerZ = settings.getInt("centerZ");
@@ -41,6 +42,7 @@ void exportValues(){
   json.setFloat("cameraHeight",customCamera.cameraHeight);
   json.setFloat("eyeX",customCamera.eyeX);
   json.setFloat("eyeY",customCamera.eyeY);
+  json.setFloat("paramEyeZ",customCamera.paramEyeZ);
   json.setFloat("centerX",customCamera.centerX);
   json.setFloat("centerY",customCamera.centerY);
   json.setFloat("centerZ",customCamera.centerZ);

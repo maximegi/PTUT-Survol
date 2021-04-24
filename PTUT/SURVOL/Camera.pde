@@ -4,7 +4,8 @@ class Camera {
   float cameraHeight = 800;
   float eyeX = 0;//cameraWidth/2;
   float eyeY = 0;//cameraHeight/2;
-  float eyeZ = 0.4*(cameraHeight/2)/tan(PI/6);
+  float eyeZ = 0;
+  float paramEyeZ = 0;
   float centerX = 0;//cameraWidth/2;
   float centerY = 0;//cameraHeight/2;
   float centerZ = 0;
@@ -12,13 +13,14 @@ class Camera {
   float upY = 1;
   float upZ = 0;
 
-  void initCam(float cameraWidth, float cameraHeight, float eyeX, float eyeY, float eyeZ,
+  void initCam(float cameraWidth, float cameraHeight, float eyeX, float eyeY, float paramEyeZ,
               float centerX, float centerY, float centerZ, float upX, float upY, float upZ){
     this.cameraWidth = cameraWidth;
     this.cameraHeight = cameraHeight;
     this.eyeX = eyeX;
     this.eyeY = eyeY;
-    this.eyeZ = eyeZ;
+    this.eyeZ = 0.30*(cameraHeight/2)/tan(PI/6);
+    this.paramEyeZ = paramEyeZ;
     this.centerX = centerX;
     this.centerY = centerY;
     this.centerZ = centerZ;
@@ -49,6 +51,17 @@ class Camera {
     {
       this.centerY -= 2.0;
     }
+
+    else if (key == '1')
+    {
+      this.centerZ += 1.0;
+    }
+    else if (key == '4')
+    {
+      this.centerZ -= 1.0;
+    }
+
+    // Faire pencher la caméra vers la gauche ou la droite
     else if (key == 'k')
     {
       this.centerX += 2.0;
@@ -57,6 +70,8 @@ class Camera {
     {
       this.centerX -= 2.0;
     }
+
+    // Approcher la caméra vers l'avant
     else if (key == 'z')
     {
       this.eyeY += 2.0;
@@ -64,6 +79,27 @@ class Camera {
     else if (key == 's')
     {
       this.eyeY -= 1.0;
+    }
+
+    // Déplacer la caméra vers la gauche ou la droite tout en se penchant
+    else if (key == 'q')
+    {
+      this.eyeX += 1.0;
+    }
+    else if (key == 'd')
+    {
+      this.eyeX -= 1.0;
+    }
+
+    else if (key == '5')
+    {
+      this.paramEyeZ += 0.01;
+      this.eyeZ = this.paramEyeZ*(this.cameraHeight/2)/tan(PI/6);
+    }
+    else if (key == '2')
+    {
+      this.paramEyeZ -= 0.01;
+      this.eyeZ = this.paramEyeZ*(cameraHeight/2)/tan(PI/6);
     }
 
   }
