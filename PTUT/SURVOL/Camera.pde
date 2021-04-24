@@ -43,23 +43,23 @@ class Camera {
   void processKeyboardEvent(){
     if (key == 'o')
     {
-      this.centerY += 1.0;
+      this.centerY += 2.0;
     }
     else if (key == 'l')
     {
-      this.centerY -= 1.0;
+      this.centerY -= 2.0;
     }
     else if (key == 'k')
     {
-      this.centerX += 1.0;
+      this.centerX += 2.0;
     }
     else if (key == 'm')
     {
-      this.centerX -= 1.0;
+      this.centerX -= 2.0;
     }
     else if (key == 'z')
     {
-      this.eyeY += 1.0;
+      this.eyeY += 2.0;
     }
     else if (key == 's')
     {
