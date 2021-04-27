@@ -8,7 +8,7 @@ void setup()
   //cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
-  img = loadImage("assets/sea.jpg");
+  //img = loadImage("assets/sea.jpg");
 
   background(100,100,100);
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);

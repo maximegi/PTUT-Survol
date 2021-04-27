@@ -65,7 +65,7 @@ class RefinedTerrain{
         pushMatrix();
         translate(x, y-2, z);
         rotateX(angle + PI);
-        scale(1.5);
+        scale(5);
         shape(this.trees.get(nbTree));
         popMatrix();
       }
@@ -75,7 +75,7 @@ class RefinedTerrain{
         pushMatrix();
         translate(x, y-2, z);
         rotateX(PI);
-        scale(1.5);
+        scale(5);
         shape(this.trees.get(nbTree));
         popMatrix();
       }
