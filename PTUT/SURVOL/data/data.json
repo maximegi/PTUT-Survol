@@ -9,6 +9,7 @@
     "cameraHeight": 800,
     "eyeX": 0,
     "eyeY": 0,
+    "paramEyeZ": 0.36,
     "centerX": 0,
     "centerY": -75,
     "centerZ": 0,
