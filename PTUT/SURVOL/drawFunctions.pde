@@ -128,7 +128,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
             else {
                 texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
             }
-        }
+        }/*
         if ((int)(value/10) %13 == 0) {
             if (normal){
               texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2,radians((i-cols/2)*angle), texturedTerrain.m_actualTree+1);
@@ -136,7 +136,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
             else {
                 texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree+1);
             }
-        }
+        }*/
 
         //flat sea
         if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){

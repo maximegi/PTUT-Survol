@@ -13,7 +13,7 @@ void initValues(){
   cameraHeight = settings.getInt("cameraHeight");
   eyeX = settings.getInt("eyeX");
   eyeY = settings.getInt("eyeY");
-  paramEyeZ = settings.getInt("paramEyeZ");
+  paramEyeZ = settings.getFloat("paramEyeZ");
   centerX = settings.getInt("centerX");
   centerY = settings.getInt("centerY");
   centerZ = settings.getInt("centerZ");

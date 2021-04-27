@@ -19,8 +19,8 @@ class Camera {
     this.cameraHeight = cameraHeight;
     this.eyeX = eyeX;
     this.eyeY = eyeY;
-    this.eyeZ = 0.30*(cameraHeight/2)/tan(PI/6);
     this.paramEyeZ = paramEyeZ;
+    this.eyeZ = this.paramEyeZ*(cameraHeight/2)/tan(PI/6);
     this.centerX = centerX;
     this.centerY = centerY;
     this.centerZ = centerZ;
@@ -47,56 +47,56 @@ class Camera {
     {
       this.centerY += 2.0;
     }
-    else if (key == 'l')
+    if (key == 'l')
     {
       this.centerY -= 2.0;
     }
 
-    else if (key == '1')
+    if (key == '1')
     {
       this.centerZ += 1.0;
     }
-    else if (key == '4')
+    if (key == '4')
     {
       this.centerZ -= 1.0;
     }
 
     // Faire pencher la caméra vers la gauche ou la droite
-    else if (key == 'k')
+    if (key == 'k')
     {
       this.centerX += 2.0;
     }
-    else if (key == 'm')
+    if (key == 'm')
     {
       this.centerX -= 2.0;
     }
 
     // Approcher la caméra vers l'avant
-    else if (key == 'z')
+    if (key == 'z')
     {
       this.eyeY += 2.0;
     }
-    else if (key == 's')
+    if (key == 's')
     {
       this.eyeY -= 1.0;
     }
 
     // Déplacer la caméra vers la gauche ou la droite tout en se penchant
-    else if (key == 'q')
+    if (key == 'q')
     {
       this.eyeX += 1.0;
     }
-    else if (key == 'd')
+    if (key == 'd')
     {
       this.eyeX -= 1.0;
     }
 
-    else if (key == '5')
+    if (key == '5')
     {
       this.paramEyeZ += 0.01;
       this.eyeZ = this.paramEyeZ*(this.cameraHeight/2)/tan(PI/6);
     }
-    else if (key == '2')
+    if (key == '2')
     {
       this.paramEyeZ -= 0.01;
       this.eyeZ = this.paramEyeZ*(cameraHeight/2)/tan(PI/6);
