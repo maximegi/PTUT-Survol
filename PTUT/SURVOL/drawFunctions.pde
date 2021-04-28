@@ -84,7 +84,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
   scale(2);
   translate(-cols/2,rows/3);
   //we're working with a half cylinder
-  float angle = 180.0 / cols;
+  float angle = 180.0/ cols;
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
@@ -120,8 +120,16 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         color biome = m_refinedTerrain.getFillColor(currentHeight, perlinTexture(xperlinc, yperlinc));
 
         float value = (perlinTrees(xperlinc, yperlinc) + perlinTrees(xperlinf, yperlinf))/2;
-
-        if ((int)(value/10) %15 == 0) {
+        //Trees : 9
+        if ((int)(value/10) %14 == 0) {
+            if (normal){
+              texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2 ,radians((i-cols/2)*angle), texturedTerrain.m_actualTree);
+            }
+            else {
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
+            }
+        }/*
+        if ((int)(value/10) %17 == 0) {
             if (normal){
               texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2 ,radians((i-cols/2)*angle), texturedTerrain.m_actualTree);
             }
@@ -129,14 +137,23 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
                 texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
             }
         }
-        if ((int)(value/10) %17 == 0) {
+        if ((int)(value/10) %23 == 0) {
             if (normal){
-              texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2,radians((i-cols/2)*angle), texturedTerrain.m_actualTree+1);
+              texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2 ,radians((i-cols/2)*angle), texturedTerrain.m_actualTree);
             }
             else {
-                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree+1);
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
             }
-        }
+        }*/
+        /*
+        if ((int)(value/10) %23 == 0) {
+            if (normal){
+              texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2,radians((i-cols/2)*angle), texturedTerrain.m_actualTree);
+            }
+            else {
+                texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2, (x+xf)/2, texturedTerrain.m_actualTree);
+            }
+        }*/
 
         //flat sea
         if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){

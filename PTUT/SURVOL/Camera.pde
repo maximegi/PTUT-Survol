@@ -84,11 +84,11 @@ class Camera {
     // Déplacer la caméra vers la gauche ou la droite tout en se penchant
     if (key == 'q')
     {
-      this.eyeX += 1.0;
+      this.eyeX += 5.0;
     }
     if (key == 'd')
     {
-      this.eyeX -= 1.0;
+      this.eyeX -= 5.0;
     }
 
     if (key == '5')

@@ -1,7 +1,7 @@
 JSONArray values;
 
 void initValues(){
-  values = loadJSONArray("data/savedConfig.json");
+  values = loadJSONArray("data/data.json");
 
   JSONObject settings = values.getJSONObject(0);
   scl = settings.getInt("scl");

@@ -1,6 +1,6 @@
 void setup()
 {
-  size(1080, 720, P3D);
+  size(1920, 1080, P3D);
   sky = createGraphics(width,height);
   createBg();
 
@@ -21,7 +21,8 @@ void setup()
   texturedTerrain.addTreeToList("assets/regularTree2.obj");
   texturedTerrain.addTreeToList("assets/leaflessTreeSnow.obj");
   texturedTerrain.addTreeToList("assets/empty.obj");
-  texturedTerrain.addTreeToList("assets/empty.obj");
+  texturedTerrain.addTreeToList("assets/tree_1.obj");
+
 }
 
 float perlin(float posX, float posY)
@@ -59,7 +60,7 @@ void draw()
   customCamera.update();
   mesh.move();
    //drawAxes();
-   translate(0,100,200);
+   translate(-200,100,200);
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
   mapCylinder(cols, rows, 120, sizeNoise, pasPerlin, mesh, texturedTerrain);
   //directionalLight(255, 0, 0, 100, 0, 0);
