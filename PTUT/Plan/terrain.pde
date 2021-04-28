@@ -5,8 +5,8 @@ class Terrain
   PVector direction = new PVector(.001, 0.);
   int w;
   int h;
-  float deltaPos = .01;
-  float deltaAngle = .01;
+  float deltaPos = 1;
+  float deltaAngle = 1;
 
   float x(){return position.x;}
   float y(){return position.y;}
@@ -30,8 +30,11 @@ class Terrain
     if (EAST && !SHIFTPRESSED) position.y+=deltaPos;
     if (WEST && SHIFTPRESSED) rotate2D(direction, -deltaAngle);
     if (EAST && SHIFTPRESSED) rotate2D(direction, deltaAngle);
-    translate(direction.x, direction.y);
-    rotate(atan2(direction.y, direction.x));
+    pushMatrix();
+      translate(direction.x, direction.y);
+      rotate(atan2(direction.y, direction.x));
+      rect(this.position.x, this.position.y, this.w, this.h);
+    popMatrix();
   }
 
 }

@@ -5,7 +5,7 @@ class MovingArea
   int h;
 
   float deltaPos = .01;
-  float deltaAngle = .02;
+  float deltaAngle = .05;
 
   PVector position = new PVector(0., 0.);
   PVector direction = new PVector(1., 0.);
@@ -87,5 +87,17 @@ void keyPressed()
   else if (k == SHIFT) SHIFTPRESSED = true;
   if (key == 'p' || key == 'P'){
     exportValues();
+  }
+  if (key == 't' || key == 'T'){
+    mesh.deltaPos += 0.05;
+  }
+  if (key == 'g' || key == 'G'){
+    mesh.deltaPos -= 0.05;
+  }
+  if (key == 'y' || key == 'Y'){
+    mesh.deltaAngle += 0.1;
+  }
+  if (key == 'h' || key == 'H'){
+    mesh.deltaAngle -= 0.1;
   }
 }

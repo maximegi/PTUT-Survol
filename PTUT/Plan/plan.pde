@@ -27,20 +27,20 @@ void draw()
   float pasPerlin = 0.01;
   int sizeNoise = 20;
   //peasycam maxime
-  rotateX(PI/2);
-  rotateZ(-PI/2);
-  translate(-50,-cols/2,-110);
+  // rotateX(PI/2);
+  // rotateZ(-PI/2);
+  // translate(-50,-cols/2,-110);
   ////////////////////////////
 
-  background(0);
+  background(100);
   //x axis
   stroke(255, 0, 0);
   line(-1000, 0, 0, 1000, 0, 0);
   //y axis
-  stroke(0, 255, 0);
+  stroke(0, 0, 255);
   line(0, -1000, 0, 0, 1000, 0);
   //z axis
-  stroke(0, 0, 255);
+  stroke(0, 255, 0);
   line(0, 0, -1000, 0, 0, 1000);
   stroke(255);
   noFill();
@@ -48,7 +48,6 @@ void draw()
   //display mesh's footprint on perlin
   // pushMatrix();
   mesh.move();
-  rect(mesh.x(), mesh.y(), mesh.w(), mesh.h());
   // popMatrix();
 
 
@@ -59,33 +58,33 @@ void draw()
 
   float angle = 180.0 / cols;
   int r = 100;
-  translate(-rows/2,0);
+  //translate(-rows/2,0);
   for(int j = 0; j < rows-1; j++)
   {
     beginShape(TRIANGLE_STRIP);
     for (int i = 0; i < cols; i++)
     {
         //cartesian coordinates
-        // float x = i;
-        // //y past
-        // float yp = j;
-        // //y future
-        // float yf = j+1;
-        // //z past
-        // float zp = perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
-        // //z future
-        // float zf = perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
-
-        //convert coordinate to cylinderspace
-        float x = cos( radians( i * angle ) ) * r;
+        float x = i;
         //y past
         float yp = j;
         //y future
         float yf = j+1;
         //z past
-        float zp = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
+        float zp = perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
         //z future
-        float zf = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+        float zf = perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
+
+        // //convert coordinate to cylinderspace
+        // float x = cos( radians( i * angle ) ) * r;
+        // //y past
+        // float yp = j;
+        // //y future
+        // float yf = j+1;
+        // //z past
+        // float zp = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j, sizeNoise, pasPerlin);
+        // //z future
+        // float zf = sin( radians( i * angle ) ) * r + perlin(mesh.x(), i, mesh.y(), j+1, sizeNoise, pasPerlin);
 
         //triangle vertices
         vertex(x-rows/2, yp-cols/2, zp);

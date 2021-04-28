@@ -1,8 +1,12 @@
-import peasy.*;
-PeasyCam cam;
+// import peasy.*;
+// PeasyCam cam;
+
+PGraphics sky;
 
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
+
+float t=0.0, x, y, n,step=3;
 
 int cols, rows;
 int scl = 40;
@@ -51,4 +55,5 @@ color waterTmp = color(0,0,0);
 color water = color(1,50,57);
 color waterTmp = color(0,0,0);
 
+PImage img;
 boolean normal = false;

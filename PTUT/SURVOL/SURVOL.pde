@@ -1,18 +1,27 @@
 void setup()
 {
   size(1080, 720, P3D);
+  sky = createGraphics(width,height);
+  createBg();
+
   initValues();
+  //cam = new PeasyCam(this, 200);
   cols = w / scl;
   rows = h / scl;
+  //img = loadImage("assets/sea.jpg");
 
   background(100,100,100);
-  texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, 1);
+  texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   texturedTerrain.addTreeToList("assets/lowpolytree.obj");
+  texturedTerrain.addTreeToList("assets/leaflessTree.obj");
   texturedTerrain.addTreeToList("assets/snowTree.obj");
   texturedTerrain.addTreeToList("assets/regularTree.obj");
   texturedTerrain.addTreeToList("assets/regularTree2.obj");
+  texturedTerrain.addTreeToList("assets/leaflessTreeSnow.obj");
+  texturedTerrain.addTreeToList("assets/empty.obj");
+  texturedTerrain.addTreeToList("assets/empty.obj");
 }
 
 float perlin(float posX, float posY)
@@ -36,23 +45,6 @@ float perlinTrees(float posX, float posY)
 
   return map(noise(15*posX, 15*posY),0,1, 0, 200);
 }
-/*
-float isTree(float posX, float posY, int density, float pas){
-  float max = 0;
-  for(int xn = currentCol - density; xn <= currentCol + density; xn++){
-    for(int yn = currentRow - density; yn <= currentRow + density; yn++){
-      float xtmp = xn*pas +posX;
-      float ytmp = yn*pas + posY;
-      if (0 <= yn && yn < rows && 0 <= xn && xn < cols) {
-        float e = perlinTrees(xtmp, ytmp);
-        if (e > max) { max = e; }
-      }
-    }
-  }
-  return max;
-}*/
-
-
 void draw()
 {
   texturedTerrain.update();
@@ -61,8 +53,21 @@ void draw()
   mesh.move();
    //drawAxes();
 
-
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
   mapCylinder(cols, rows, 100, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  // if(SOUTH){saveFrame("C:/Users/Maxime/Documents/PTUT/PTUT-Survol/PTUT/SURVOL/anim1/line-######.png");}
+}
 
+void createBg(){
+  sky.beginDraw();
+  sky.noStroke();
+  sky.rect(0,0, width,3*height/4);
+  for (y = 0; y < 3*height/4; y += step) {
+    for (x = 0; x < width; x += step) {
+      n = noise(x/200., y/50.);
+      sky.fill(9, 177, 236, n*map(y, 0, 3*height/4, 255, 0));
+      sky.rect(x,y, step,step);
+    }
+  }
+  sky.endDraw();
 }

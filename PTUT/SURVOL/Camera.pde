@@ -65,6 +65,14 @@ class Camera {
     {
       this.eyeY -= 1.0;
     }
+    else if (key == 'r')
+    {
+      this.eyeZ -= 1.0;
+    }
+    else if (key == 'f')
+    {
+      this.eyeZ += 1.0;
+    }
 
   }
 }
