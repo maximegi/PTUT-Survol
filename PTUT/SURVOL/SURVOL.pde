@@ -48,14 +48,21 @@ float perlinTrees(float posX, float posY)
 
 void draw()
 {
+
+  //pointLight(255, 255, 255, 700, 500, 900);
+  ambientLight(200, 200, 200);
+  //directionalLight(200, 200, 200, 0, 90, 0);
   texturedTerrain.update();
+  pointLight(150, 150, 150, 700, 500, 900);
+  pointLight(150, 150, 150, 400, 500, 900);
   customCamera.useCam();
   customCamera.update();
   mesh.move();
    //drawAxes();
-   //translate(0,-300,450);
+   translate(0,100,200);
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
   mapCylinder(cols, rows, 120, sizeNoise, pasPerlin, mesh, texturedTerrain);
+  //directionalLight(255, 0, 0, 100, 0, 0);
 
 }
 
