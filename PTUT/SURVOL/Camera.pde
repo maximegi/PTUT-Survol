@@ -101,6 +101,5 @@ class Camera {
       this.paramEyeZ -= 0.01;
       this.eyeZ = this.paramEyeZ*(cameraHeight/2)/tan(PI/6);
     }
-
   }
 }

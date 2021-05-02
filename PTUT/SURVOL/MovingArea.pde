@@ -1,5 +1,4 @@
-class MovingArea
-{
+class MovingArea{
   //parameters
   int w;
   int h;
@@ -21,28 +20,24 @@ class MovingArea
   float getOrthoX(){return orthodirection.x;}
   float getOrthoY(){return orthodirection.y;}
 
-  MovingArea(float x, float y, int w, int h)
-  {
+  MovingArea(float x, float y, int w, int h){
     this.position.x = x;
     this.position.y = y;
     this.w = w;
     this.h = h;
   }
 
-  void moveForward()
-  {
+  void moveForward(){
     position.x += deltaPos * direction.x;
     position.y += deltaPos * direction.y;
   }
 
-  void moveBackward()
-  {
+  void moveBackward(){
     position.x -= deltaPos * direction.x;
     position.y -= deltaPos * direction.y;
   }
 
-  void rotatemArea(float theta)
-  {
+  void rotatemArea(float theta){
     float xTemp1 = direction.x;
     float xTemp2 = orthodirection.x;
     direction.x = direction.x*cos(theta) - direction.y*sin(theta);
@@ -51,8 +46,7 @@ class MovingArea
     orthodirection.y = xTemp2*sin(theta) + orthodirection.y*cos(theta);
   }
 
-  void move()
-  {
+  void move(){
     if (NORTH) this.moveForward();
     if (SOUTH) this.moveBackward();
     if (WEST && !SHIFTPRESSED) this.rotatemArea(-deltaAngle);
@@ -66,8 +60,7 @@ class MovingArea
 boolean NORTH, SOUTH, WEST, EAST, SHIFTPRESSED;
 
 
-void keyReleased()
-{
+void keyReleased(){
   final int k = keyCode;
   //↓↓↓ uncomment to manually move the mesh ↓↓↓ if comment dont push UP and DOWN another time
 
@@ -78,17 +71,19 @@ void keyReleased()
   else if (k == SHIFT) SHIFTPRESSED = false;
 }
 
-void keyPressed()
-{
+void keyPressed(){
   final int k = keyCode;
-  if (k == UP) NORTH = true;
-  else if (k == DOWN) SOUTH = true;
-  else if (k == LEFT) WEST  = true;
-  else if (k == RIGHT) EAST  = true;
+  if (k == UP) NORTH = true; // Move onward
+  else if (k == DOWN) SOUTH = true; // Move backward
+  else if (k == LEFT) WEST  = true; // Turn left
+  else if (k == RIGHT) EAST  = true; // Turn Right
   else if (k == SHIFT) SHIFTPRESSED = true;
+
+  // Save all values to the "savedConfig.json" file
   if (key == 'p' || key == 'P'){
     exportValues();
   }
+  
   if (key == 't' || key == 'T'){
     mesh.deltaPos += 0.05;
   }

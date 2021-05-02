@@ -1,6 +1,6 @@
 class RefinedTerrain{
     boolean isWaterActive = true;
-
+    
     float m_waterThreshold = -0.2;
     float m_sandThreshold = 0.05;
     float m_clayThreshold = 0.05;
