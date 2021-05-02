@@ -2,6 +2,7 @@ void setup()
 {
   size(1920, 1080, P3D);
   sky = createGraphics(width,height);
+  //background(100,100,100);
   createBg();
 
   initValues();
@@ -10,18 +11,23 @@ void setup()
   rows = h / scl;
   //img = loadImage("assets/sea.jpg");
 
-  background(100,100,100);
+
   texturedTerrain.initRefinedTerrain(waterThreshold, sandThreshold, clayThreshold, grassThreshold, 1);
   customCamera.initCam(cameraWidth, cameraHeight, eyeX, eyeY, paramEyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
-  texturedTerrain.addTreeToList("assets/lowpolytree.obj");
-  texturedTerrain.addTreeToList("assets/leaflessTree.obj");
-  texturedTerrain.addTreeToList("assets/snowTree.obj");
-  texturedTerrain.addTreeToList("assets/regularTree.obj");
-  texturedTerrain.addTreeToList("assets/regularTree2.obj");
-  texturedTerrain.addTreeToList("assets/leaflessTreeSnow.obj");
+  //texturedTerrain.addTreeToList("assets/lowpolytree.obj");
+  //texturedTerrain.addTreeToList("assets/leaflessTree.obj");
+  //texturedTerrain.addTreeToList("assets/snowTree.obj");
+  //texturedTerrain.addTreeToList("assets/regularTree.obj");
+  //texturedTerrain.addTreeToList("assets/regularTree2.obj");
+  //texturedTerrain.addTreeToList("assets/leaflessTreeSnow.obj");
   texturedTerrain.addTreeToList("assets/empty.obj");
   texturedTerrain.addTreeToList("assets/tree_1.obj");
+  texturedTerrain.addTreeToList("assets/tree_2.obj");
+  texturedTerrain.addTreeToList("assets/tree_3.obj");
+  texturedTerrain.addTreeToList("assets/tree_4.obj");
+  texturedTerrain.addTreeToList("assets/tree_5.obj");
+  texturedTerrain.addTreeToList("assets/rock.obj");
 
 }
 
@@ -49,18 +55,21 @@ float perlinTrees(float posX, float posY)
 
 void draw()
 {
-
+  backgroundType();
+  changeBackground();
+  //createBg();
   //pointLight(255, 255, 255, 700, 500, 900);
-  ambientLight(200, 200, 200);
-  //directionalLight(200, 200, 200, 0, 90, 0);
-  texturedTerrain.update();
+  ambientLight(217, 202, 196);
+  directionalLight(20, 20, 40, 0, 90, 0);
+
   pointLight(150, 150, 150, 700, 500, 900);
   pointLight(150, 150, 150, 400, 500, 900);
+  texturedTerrain.update();
   customCamera.useCam();
   customCamera.update();
   mesh.move();
    //drawAxes();
-   translate(-200,100,200);
+   translate(-115,100,200);
   //drawPlanar(cols, rows, sizeNoise, pasPerlin, mesh, texturedTerrain);
   mapCylinder(cols, rows, 120, sizeNoise, pasPerlin, mesh, texturedTerrain);
   //directionalLight(255, 0, 0, 100, 0, 0);
@@ -72,12 +81,39 @@ void createBg(){
   sky.noStroke();
   sky.rect(0,0, width,3*height/4);
 
-  for (y = 0; y < 3*height/4; y += step) {
-    for (x = 0; x < width; x += step) {
-      n = noise(x/200., y/50.);
-      sky.fill(9, 177, 236, n*map(y, 0, 3*height/4, 255, 0));
-      sky.rect(x,y, step,step);
+  for (float i = 0; i < 3*height/4; i += step) {
+    for (float j = 0; j < width; j += step) {
+      float n = noise(j/200., i/50.);
+      //sky.fill(9, 177, 236, n*map(i, 0, 3*height/4, 255, 0));
+      sky.fill(58, 163, 190, n*map(i, 0, 3*height/4, 255, 220));
+      sky.rect(j,i, step,step);
     }
   }
   sky.endDraw();
+}
+
+void backgroundType(){
+  if(bgSelect == 0){
+    background(sky);
+  }
+  else if(bgSelect == 1){
+    background(255);
+  }
+  else{
+    background(0);
+  }
+}
+
+void changeBackground(){
+  if(keyPressed){
+    if(key == '²'){
+      if(bgSelect == 2){
+        bgSelect = 0;
+      }
+      else{
+        bgSelect ++;
+      }
+    }
+  }
+  keyPressed = false;
 }

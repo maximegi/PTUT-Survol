@@ -7,7 +7,7 @@ class RefinedTerrain{
     float m_grassThreshold = 0.1;
 
     int m_actualTree = 0;
-
+    boolean tree = true;
     boolean changingWater = false;
 
     int m_treeDensity = 3;
@@ -86,12 +86,20 @@ class RefinedTerrain{
       else{this.isWaterActive = true;}
     }
 
+    void showTree(){
+      if(tree){tree = false;}
+      else{tree = true;}
+    }
+
     void addTreeToList(String filename){
       this.trees.add(loadShape(filename));
     }
 
     void update(){
       if(keyPressed){
+        if(key == '-' || key == '6'){
+          this.showTree();
+        }
         if(key == 'w' || key == 'W'){
           this.changeWaterStatus();
         }

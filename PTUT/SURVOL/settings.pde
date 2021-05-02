@@ -2,11 +2,12 @@ import peasy.*;
 PeasyCam cam;
 
 PGraphics sky;
+int bgSelect = 0;
 
 Camera customCamera = new Camera();
 RefinedTerrain texturedTerrain = new RefinedTerrain();
 
-float t=0.0, x, y, n,step=3;
+float t=0.0, step=1;
 
 int cols, rows;
 int scl = 40;
@@ -21,6 +22,7 @@ float sandThreshold = 0.0;
 float clayThreshold = 0.0;
 float grassThreshold = 0.0;
 int treeDensity = 0;
+boolean tree = true;
 
 MovingArea mesh = new MovingArea(-(w / (2*scl)), -(h / (2*scl)), w / scl, h / scl);
 

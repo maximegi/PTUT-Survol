@@ -70,6 +70,7 @@ void keyReleased()
 {
   final int k = keyCode;
   //↓↓↓ uncomment to manually move the mesh ↓↓↓ if comment dont push UP and DOWN another time
+
   if      (k == UP) NORTH = false;
   else if (k == DOWN) SOUTH = false;
   else if (k == LEFT) WEST  = false;
