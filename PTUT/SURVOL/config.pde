@@ -39,6 +39,21 @@ void initValues(){
   texturedTerrain.m_actualTree = settings.getInt("actualTree");
   mesh.deltaPos = settings.getFloat("deltaPos");
   mesh.deltaAngle = settings.getFloat("deltaAngle");
+
+  // Initialisation de la console midi :
+  // Encoder :
+  // Seuil de l'eau
+  float tmpWater = map(waterThreshold, -0.4, 0.4, 0, 127);
+  myBus.sendControllerChange(0, 2, (int)tmpWater);
+  // Seuil du sable
+  float tmpSand = map(sandThreshold, -0.4, 0.6, 0, 127);
+  myBus.sendControllerChange(0, 3, (int)tmpSand);
+  // Seuil de la terre
+  float tmpClay = map(clayThreshold, -0.4, 0.6, 0, 127);
+  myBus.sendControllerChange(0, 4, (int)tmpClay);
+  // Seuil de l'herbe
+  float tmpGrass = map(grassThreshold, -0.4, 0.6, 0, 127);
+  myBus.sendControllerChange(0, 5, (int)tmpGrass);
 }
 
 void exportValues(){

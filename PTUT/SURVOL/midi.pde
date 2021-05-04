@@ -15,22 +15,28 @@ void controllerChange(int channel, int number, int value) {
   if (number==66) {
     texturedTerrain.m_waterThreshold = -0.2;
     float val = map(-0.2, -0.4, 0.4, 0, 127);
-    myBus.sendControllerChange(0, 2, val);
+    myBus.sendControllerChange(0, 2, (int)val);
   }
 
   // Reset - Seuil du sable
   if (number==67) {
     texturedTerrain.m_sandThreshold = 0.05;
+    float val = map(0.05, -0.4, 0.6, 0, 127);
+    myBus.sendControllerChange(0, 3, (int)val);
   }
 
   // Reset - Seuil de la terre
   if (number==68) {
     texturedTerrain.m_clayThreshold = 0.1;
+    float val = map(0.1, -0.4, 0.6, 0, 127);
+    myBus.sendControllerChange(0, 4, (int)val);
   }
 
   // Reset - Seuil de l'herbe
   if (number==69) {
     texturedTerrain.m_grassThreshold = 0.1;
+    float val = map(0.1, -0.4, 0.6, 0, 127);
+    myBus.sendControllerChange(0, 5, (int)val);
   }
 
   // Boutons - 2ème ligne
@@ -71,7 +77,19 @@ void controllerChange(int channel, int number, int value) {
 
   // Seuil du sable
   if (number==3) {
-    cc[3]= map(value, 0, 127, -0.4, 0.4);
+    cc[3]= map(value, 0, 127, -0.4, 0.6);
     texturedTerrain.m_sandThreshold = cc[3];
+  }
+
+  // Seuil de la terre
+  if (number==4) {
+    cc[4]= map(value, 0, 127, -0.4, 0.6);
+    texturedTerrain.m_clayThreshold = cc[4];
+  }
+
+  // Seuil de l'herbe
+  if (number==5) {
+    cc[5]= map(value, 0, 127, -0.4, 0.6);
+    texturedTerrain.m_grassThreshold = cc[5];
   }
 }

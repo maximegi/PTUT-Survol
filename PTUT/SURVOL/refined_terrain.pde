@@ -115,7 +115,6 @@ class RefinedTerrain{
         }
         if(key == 'b' || key == 'B'){
           this.m_sandThreshold += 0.05;
-          println(this.m_sandThreshold);
         }
         if((key == 'n' || key == 'N') && this.m_clayThreshold!= 0.1){
           this.m_clayThreshold -= 0.05;
@@ -125,9 +124,11 @@ class RefinedTerrain{
         }
         if((key == ';' || key == '.') && this.m_grassThreshold!= 0.1){
           this.m_grassThreshold -= 0.05;
+          println(this.m_grassThreshold);
         }
         if(key == ':' || key == '/'){
           this.m_grassThreshold += 0.05;
+          println(this.m_grassThreshold);
         }
         if (key == '_' || key == '8'){//number 8 (above the I)
           if(this.m_actualTree != trees.size() - 2)    {this.m_actualTree++;}
