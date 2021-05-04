@@ -32,15 +32,10 @@ void showBackground(){
 
 // Change background
 void changeBackground(){
-  if(keyPressed){
-    if(key == '²'){
-      if(bgSelect == 2){
-        bgSelect = 0;
-      }
-      else{
-        bgSelect ++;
-      }
+    if(bgSelect == 2){
+      bgSelect = 0;
     }
-  }
-  keyPressed = false;
+    else{
+      bgSelect ++;
+    }
 }

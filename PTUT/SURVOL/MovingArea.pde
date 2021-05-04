@@ -83,7 +83,7 @@ void keyPressed(){
   if (key == 'p' || key == 'P'){
     exportValues();
   }
-  
+
   if (key == 't' || key == 'T'){
     mesh.deltaPos += 0.05;
   }

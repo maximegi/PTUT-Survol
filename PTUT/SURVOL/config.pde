@@ -1,3 +1,14 @@
+import themidibus.*;
+// import g4p_controls.*;
+
+MidiBus myBus;
+
+// for the MIDI
+int ccChannel;
+int ccNumber;
+int ccValue;
+float cc[] = new float[256];
+
 JSONArray values;
 
 void initValues(){

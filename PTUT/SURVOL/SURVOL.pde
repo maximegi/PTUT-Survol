@@ -3,6 +3,10 @@ void setup(){
 
   // Sky initialization and generation
   sky = createGraphics(width,height);
+
+  MidiBus.list();
+  myBus = new MidiBus(this, 0,1);
+
   createSky();
 
   initValues();
@@ -42,7 +46,7 @@ float perlinTrees(float posX, float posY){
 
 void draw(){
   showBackground();
-  changeBackground();
+  //changeBackground();
 
   // Scene Illumination
   ambientLight(217, 202, 196);

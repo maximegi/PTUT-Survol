@@ -1,6 +1,6 @@
 class RefinedTerrain{
     boolean isWaterActive = true;
-    
+
     float m_waterThreshold = -0.2;
     float m_sandThreshold = 0.05;
     float m_clayThreshold = 0.05;
@@ -111,9 +111,11 @@ class RefinedTerrain{
         }
         if((key == 'v' || key == 'V') && this.m_sandThreshold!= 0.1){
           this.m_sandThreshold -= 0.05;
+          println(this.m_sandThreshold);
         }
         if(key == 'b' || key == 'B'){
           this.m_sandThreshold += 0.05;
+          println(this.m_sandThreshold);
         }
         if((key == 'n' || key == 'N') && this.m_clayThreshold!= 0.1){
           this.m_clayThreshold -= 0.05;

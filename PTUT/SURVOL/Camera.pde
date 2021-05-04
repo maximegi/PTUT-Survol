@@ -61,7 +61,7 @@ class Camera {
       this.centerZ -= 1.0;
     }
 
-    // Faire pencher la caméra vers la gauche ou la droite
+    // Faire tourner le cylindre vers la gauche ou la droite
     if (key == 'k')
     {
       this.centerX += 2.0;
