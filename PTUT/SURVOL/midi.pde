@@ -5,10 +5,11 @@ void controllerChange(int channel, int number, int value) {
 
   cc[number] = value;
 
+
   // Boutons - 1ère ligne
   // Reset - Orientation de la caméra
   if (number==65) {
-    mesh.deltaAngle = 0.05;
+    mesh.deltaAngle = 0.0;
   }
 
   // Reset - Seuil de l'eau
@@ -65,8 +66,8 @@ void controllerChange(int channel, int number, int value) {
   // Encoder
   // Orientation de la cam
   if (number==1) {
-    cc[1]= map(value, 0, 127, PI/mesh.deltaAngle, -PI/mesh.deltaAngle);
-    mesh.rotatemArea(cc[1]*mesh.deltaAngle);
+    cc[1]= map(value, 0, 127, -PI, PI);
+    mesh.deltaAngle = cc[1]/50;
   }
 
   // Seuil de l'eau
@@ -92,4 +93,57 @@ void controllerChange(int channel, int number, int value) {
     cc[5]= map(value, 0, 127, -0.4, 0.6);
     texturedTerrain.m_grassThreshold = cc[5];
   }
+
+
+  // Slider
+  // Vitesse de défilement
+  if (number==81) {
+    cc[81]= map(value, 0, 127, 10, -10);
+    mesh.deltaPos = (int)cc[81];
+  }
+
+    // Reset - Parametre de Cam
+    if (number==79) {
+      customCamera.eyeY = eyeY;
+      customCamera.paramEyeZ = paramEyeZ;
+      customCamera.centerX = centerX;
+      customCamera.centerY = centerY;
+    }
+
+    // eyeY
+    if (number==83) {
+      cc[83]= map(value, 0, 127, 24, -128);
+      customCamera.eyeY = cc[83];
+    }
+
+    // paramEyeZ
+    if (number==84) {
+      cc[84]= map(value, 0, 127, 1, 0.5);
+      customCamera.paramEyeZ = cc[84];
+      customCamera.eyeZ = customCamera.paramEyeZ*(customCamera.cameraHeight/2)/tan(PI/6);
+    }
+
+    // centerY
+    if (number==85) {
+      cc[85]= map(value, 0, 127, -4, 64);
+      customCamera.centerY = cc[85] * 2;
+    }
+
+    // centerX
+    if (number==86) {
+      cc[86]= map(value, 0, 127, -64, 64);
+      customCamera.centerX = cc[86] * 2;
+    }
+
+    // pasPerlin
+    if (number==88) {
+      cc[88]= map(value, 0, 127, -10, 10);
+      pasPerlin = cc[88]/70;
+    }
+
+    // Reset pasPerlin
+    if (number==80) {
+      pasPerlin = 0.01;
+    }
+
 }

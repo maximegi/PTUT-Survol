@@ -3,8 +3,10 @@ class MovingArea{
   int w;
   int h;
 
-  float deltaPos = .01;
-  float deltaAngle = .05;
+  float deltaPos = 0;
+  // float deltaPos = .01;
+  float deltaAngle = 0;
+  //float deltaAngle = .05;
 
   PVector position = new PVector(0., 0.);
   PVector direction = new PVector(1., 0.);
@@ -28,8 +30,8 @@ class MovingArea{
   }
 
   void moveForward(){
-    position.x += deltaPos * direction.x;
-    position.y += deltaPos * direction.y;
+    position.x += deltaPos/50 * direction.x;
+    position.y += deltaPos/50 * direction.y;
   }
 
   void moveBackward(){
@@ -47,10 +49,11 @@ class MovingArea{
   }
 
   void move(){
-    if (NORTH) this.moveForward();
+    //comment because of the midi console
+    /*if (NORTH)*/ this.moveForward();
     if (SOUTH) this.moveBackward();
     if (WEST && !SHIFTPRESSED) this.rotatemArea(-deltaAngle);
-    if (EAST && !SHIFTPRESSED) this.rotatemArea(deltaAngle);
+    /*if (EAST && !SHIFTPRESSED)*/ this.rotatemArea(deltaAngle);
     if (WEST && SHIFTPRESSED) this.rotatemArea(-deltaAngle);
     if (EAST && SHIFTPRESSED) this.rotatemArea(deltaAngle);
   }
