@@ -6,10 +6,10 @@ Survol fonctionne selon une génération __procédurale__ de paysage basée sur 
 
 ## Faire fonctionner Survol
 
-- __Téléchargez__ [processing] et la librairie [g4p] (pour faire fonctionner la console MIDI)
-- Dans __Documents__/__processing__/__libraries__/ placez le dossier __g4p__ extrait
+- __Téléchargez__ [processing] et la librairie [themidibus] (pour faire fonctionner la console MIDI)
+- Dans __Documents__/__processing__/__libraries__/ placez le dossier __themidibus__ extrait
 - __Ouvrir__ SURVOL.pde avec __processing__
 - __Lancez__ le projet
 
-   [g4p]: <https://sourceforge.net/projects/g4p/>
+   [themidibus]: <http://www.smallbutdigital.com/projects/themidibus/>
    [processing]: <https://processing.org/>
