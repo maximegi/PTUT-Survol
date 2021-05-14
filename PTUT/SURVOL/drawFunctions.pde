@@ -40,7 +40,7 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         float value = (perlinTrees(xperlinc, yperlinc) + perlinTrees(xperlinf, yperlinf))/2;
 
         // Place trees only if the tree value is "true"
-        if(tree){
+        if(texturedTerrain.tree){
           if ((int)(value/5) %31 == 0) {
               if (normal){
                 texturedTerrain.placeTrees(biome, (yp+yf)/2, (-zp-zf)/2 +3, (x+xf)/2 ,radians((i-cols/2)*angle), texturedTerrain.m_actualTree+4);
@@ -78,11 +78,11 @@ void mapCylinder(int cols, int rows, int r, int sizeNoise, float pasPerlin, Movi
         }
 
         //flat sea
-        if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
-          zp = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        if(zp <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold + 3){
+          zp = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold + 3;
         }
-        if(zf <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold){
-          zf = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold;
+        if(zf <= sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold + 3){
+          zf = sin( radians( i * angle ) ) * r + sizeNoise * m_refinedTerrain.m_waterThreshold + 3;
         }
 
         fill(biome);

@@ -53,7 +53,9 @@ void controllerChange(int channel, int number, int value) {
 
   // Afficher ou non les arbres
   if (number==75) {
-    texturedTerrain.showTree();
+    println(texturedTerrain.tree);
+    if(texturedTerrain.tree){texturedTerrain.tree = false;}
+    else{texturedTerrain.tree = true;}
   }
 
   // Afficher les arbres selon la normale
@@ -137,8 +139,9 @@ void controllerChange(int channel, int number, int value) {
 
     // pasPerlin
     if (number==88) {
-      cc[88]= map(value, 0, 127, -10, 10);
-      pasPerlin = cc[88]/70;
+      cc[88]= map(value, 0, 127, 0, 10);
+      texturedTerrain.scaleTrees = (int)cc[88];
+      // pasPerlin = cc[88]/70;
     }
 
     // Reset pasPerlin

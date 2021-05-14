@@ -1,6 +1,6 @@
 void setup(){
-  size(1920, 1080, P3D);
-
+  size(1920, 1070, P3D);
+  // fullScreen();
   // Sky initialization and generation
   sky = createGraphics(width,height);
 

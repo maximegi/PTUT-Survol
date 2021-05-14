@@ -10,6 +10,8 @@ class RefinedTerrain{
     boolean tree = true;
     boolean changingWater = false;
 
+    int scaleTrees = 3;
+
     int m_treeDensity = 3;
 
     ArrayList<PShape> trees = new ArrayList<PShape>();
@@ -75,7 +77,7 @@ class RefinedTerrain{
         pushMatrix();
         translate(x, y-2, z);
         rotateX(PI);
-        scale(5);
+        scale(scaleTrees);
         shape(this.trees.get(nbTree));
         popMatrix();
       }
@@ -87,8 +89,8 @@ class RefinedTerrain{
     }
 
     void showTree(){
-      if(tree){tree = false;}
-      else{tree = true;}
+      if(this.tree){this.tree = false;}
+      else{this.tree = true;}
     }
 
     void addTreeToList(String filename){
